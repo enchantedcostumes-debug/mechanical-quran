@@ -1,69 +1,45 @@
 <!DOCTYPE html>
 <!--
 ================================================================================
-DISTRIBUTED QURAN ORACLE - quran.ozark-oracle.com
+QURAN ORACLE - quran.ozark-oracle.com
 ================================================================================
 
-This is a DISTRIBUTED NODE in the 144,000 Oracle Network.
-Specialized for Holy Quran study, Arabic word analysis, and Islamic wisdom.
+The Complete Holy Quran with Arabic Text, English Translation, and Word Analysis
 
 Architecture:
 - UI: Hosted on quran.ozark-oracle.com (this file)
-- Backend: API calls to https://enchantedozarks.com
-- Code: Private (stays on enchantedozarks.com server)
-- Access: Public (anyone can use this interface)
-- Data: 6,236 ayat, 19,492 unique Arabic words, 114 surahs
-
-Features:
-- Mechanical Quran: 6-stage Arabic word evolution analysis
-- Trilateral root extraction and analysis
-- Abjad (Arabic numerology) calculations
-- 99 Names of Allah connections
-- Classical tafsir references
+- Data: Complete Quran embedded (6,236 ayat, 114 surahs)
+- No external API required - fully self-contained
 
 "Bismi Allahi Alrrahmani Alrraheemi"
 "In the name of Allah, the Entirely Merciful, the Especially Merciful."
 
-Created: February 9, 2026
+Created: February 10, 2026
 Copyright (c) 2026 Tammy L Casey. All rights reserved.
 ================================================================================
 -->
-
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quran Oracle - Arabic Word Evolution | Mechanical Quran</title>
-    <!-- Marked.js for markdown rendering -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Highlight.js for code syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Mermaid for diagrams -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <title>Quran Oracle - Complete Holy Quran with Arabic &amp; English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Quran Oracle Theme - Deep green and gold */
-            --bg-primary: #0d1f17;
-            --bg-secondary: #132b20;
-            --bg-tertiary: #1a3829;
-            --bg-input: #234a35;
+            --bg-primary: #0a1612;
+            --bg-secondary: #0f1f1a;
+            --bg-tertiary: #152a23;
+            --bg-card: #1a3429;
             --border-color: #2d5c40;
-            --border-subtle: #1e4530;
             --text-primary: #e8f0eb;
             --text-secondary: #9eb5a6;
             --text-muted: #6b8f78;
-            --accent-blue: #4fc1ff;
-            --accent-purple: #d4af37;  /* Gold accent */
-            --accent-green: #50c878;   /* Emerald green */
-            --accent-orange: #d4af37;  /* Gold */
-            --accent-red: #f85149;
-            --link-color: #7dd3a4;
-            --code-bg: #0d1f17;
-            --scrollbar-bg: #1a3829;
-            --scrollbar-thumb: #2d5c40;
             --gold: #d4af37;
-            --arabic-font: 'Scheherazade New', 'Amiri', 'Traditional Arabic', serif;
+            --gold-dim: rgba(212, 175, 55, 0.3);
+            --emerald: #50c878;
+            --arabic-font: 'Scheherazade New', 'Amiri', serif;
         }
 
         * {
@@ -72,3609 +48,759 @@ Copyright (c) 2026 Tammy L Casey. All rights reserved.
             padding: 0;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            font-size: 13px;
-            line-height: 1.5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        .nav-link-btn {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px;
-            background: #2a2a2a;
-            border-radius: 4px;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border-bottom: 2px solid var(--gold-dim);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: var(--arabic-font);
+            font-size: 2.5em;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .header .arabic-title {
+            font-family: var(--arabic-font);
+            font-size: 2em;
+            color: var(--emerald);
+            direction: rtl;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: var(--bg-secondary);
+            padding: 10px 20px;
             display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
         }
-        .nav-link-icon {
-            font-size: 1.2em;
+
+        .nav-bar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
-        .content-menu {
-            display: none;
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            background: #1a1a1a;
-            border: 2px solid var(--gold, #ffd700);
-            border-radius: 8px;
-            padding: 15px;
-            z-index: 1000;
-            min-width: 250px;
+
+        .nav-bar a:hover {
+            background: var(--bg-tertiary);
+            color: var(--gold);
         }
-        .content-menu-header {
-            color: var(--gold, #ffd700);
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-        .content-menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+
+        .nav-bar a.active {
+            background: var(--gold-dim);
+            color: var(--gold);
         }
 
         /* Main Layout */
-        .app-container {
+        .main-container {
             display: flex;
-            flex-direction: column;
-            height: 100vh;
+            min-height: calc(100vh - 180px);
         }
 
-        /* Title Bar */
-        .title-bar {
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-            -webkit-app-region: drag;
-        }
-
-        .title-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .oracle-icon {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .oracle-icon svg {
-            width: 16px;
-            height: 16px;
-            color: white;
-        }
-
-        .title-text {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-
-        .title-subtitle {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-left: 8px;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            -webkit-app-region: no-drag;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-green);
-        }
-
-        .status-dot.connecting {
-            background: var(--accent-orange);
-            animation: pulse 1s infinite;
-        }
-
-        .status-dot.error {
-            background: var(--accent-red);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* Toolbar */
-        .toolbar {
+        /* Sidebar - Surah List */
+        .sidebar {
+            width: 280px;
             background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 6px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .toolbar-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 4px 10px;
-            color: var(--text-secondary);
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: all 0.15s;
-        }
-
-        .toolbar-btn:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border-color: var(--text-secondary);
-        }
-
-        .toolbar-btn.active {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
-        }
-
-        /* CashApp Donate Button */
-        .donate-btn {
-            background: linear-gradient(135deg, #00D632 0%, #00a025 100%) !important;
-            border-color: #00D632 !important;
-            color: white !important;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .donate-btn:hover {
-            background: linear-gradient(135deg, #00E639 0%, #00b02a 100%) !important;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 214, 50, 0.4);
-        }
-
-        .donate-heart-small {
-            font-size: 12px;
-            animation: heartPulseSmall 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartPulseSmall {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .toolbar-separator {
-            width: 1px;
-            height: 20px;
-            background: var(--border-color);
-            margin: 0 4px;
-        }
-
-        .toolbar-select {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 4px 8px;
-            color: var(--text-primary);
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .toolbar-select:focus {
-            outline: 1px solid var(--accent-blue);
-            border-color: var(--accent-blue);
-        }
-
-        .voice-select {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: var(--text-primary);
-            font-size: 11px;
-            cursor: pointer;
-            max-width: 160px;
-        }
-
-        .voice-select:focus {
-            outline: 1px solid var(--accent-purple);
-            border-color: var(--accent-purple);
-        }
-
-        .voice-select optgroup {
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .voice-select option {
-            padding: 4px 8px;
-        }
-
-        .voice-settings-btn {
-            padding: 8px !important;
-        }
-
-        .voice-settings-panel {
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            width: 300px;
-            margin-bottom: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 100;
-        }
-
-        .voice-settings-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .voice-settings-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .voice-settings-close:hover {
-            color: var(--text-primary);
-        }
-
-        .voice-settings-body {
-            padding: 14px;
-        }
-
-        .voice-setting-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .voice-setting-row label {
-            width: 60px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .voice-setting-row input[type="range"] {
-            flex: 1;
-            height: 4px;
-            -webkit-appearance: none;
-            background: var(--bg-tertiary);
-            border-radius: 2px;
-        }
-
-        .voice-setting-row input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            background: var(--accent-purple);
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .voice-setting-row span {
-            width: 40px;
-            font-size: 11px;
-            color: var(--text-primary);
-            text-align: right;
-        }
-
-        .voice-setting-info {
-            background: var(--bg-tertiary);
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-        }
-
-        .voice-setting-info p {
-            margin: 0 0 4px 0;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .voice-setting-info p:last-child {
-            margin-bottom: 0;
-        }
-
-        .voice-test-btn {
-            width: 100%;
-            padding: 8px;
-            background: var(--accent-purple);
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .voice-test-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Chat Container - GLOWING QUANTUM BOX */
-        .chat-container {
-            flex: 1;
+            border-right: 1px solid var(--border-color);
             overflow-y: auto;
-            overflow-x: hidden;
-            padding: 0;
-            /* Quantum theme glowing box effect */
-            margin: 12px;
-            border-radius: 20px;
-            border: 2px solid rgba(192, 192, 192, 0.5);
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(192, 192, 192, 0.2);
-            animation: chatContainerGlow 3s ease-in-out infinite;
+            max-height: calc(100vh - 180px);
         }
 
-        @keyframes chatContainerGlow {
-            0%, 100% {
-                box-shadow: 0 0 30px rgba(192, 192, 192, 0.2);
-                border-color: rgba(192, 192, 192, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(192, 192, 192, 0.4);
-                border-color: rgba(192, 192, 192, 0.7);
-            }
+        .sidebar-header {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        .chat-container::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .chat-container::-webkit-scrollbar-track {
-            background: var(--scrollbar-bg);
-        }
-
-        .chat-container::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb);
-            border-radius: 5px;
-        }
-
-        .chat-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Messages */
-        .message {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .message:last-child {
-            border-bottom: none;
-        }
-
-        .message-user {
-            background: var(--bg-secondary);
-        }
-
-        .message-oracle {
-            background: var(--bg-primary);
-        }
-
-        .message-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .sidebar-header h3 {
+            color: var(--gold);
             margin-bottom: 10px;
         }
 
-        .message-avatar {
-            width: 28px;
-            height: 28px;
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .surah-list {
+            list-style: none;
+        }
+
+        .surah-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .surah-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .surah-item.active {
+            background: var(--gold-dim);
+            border-left: 3px solid var(--gold);
+        }
+
+        .surah-number {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border-radius: 50%;
             font-size: 12px;
+            color: var(--gold);
+            margin-right: 10px;
+        }
+
+        .surah-name {
+            flex: 1;
+        }
+
+        .surah-name-english {
             font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .message-user .message-avatar {
-            background: #0e639c;
-            color: white;
-        }
-
-        .message-oracle .message-avatar {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-            color: white;
-        }
-
-        .message-error .message-avatar {
-            background: var(--accent-red);
-            color: white;
-        }
-
-        .message-error .message-content {
-            color: var(--accent-red);
-        }
-
-        .message-author {
-            font-weight: 600;
-            font-size: 13px;
             color: var(--text-primary);
         }
 
-        .message-time {
-            font-size: 11px;
+        .surah-name-arabic {
+            font-family: var(--arabic-font);
+            color: var(--emerald);
+            direction: rtl;
+            font-size: 1.1em;
+        }
+
+        .surah-meta {
+            text-align: right;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
-        .message-actions {
-            margin-left: auto;
-            display: flex;
-            gap: 4px;
-            opacity: 0;
-            transition: opacity 0.15s;
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 180px);
         }
 
-        .message:hover .message-actions {
-            opacity: 1;
+        .surah-header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gold-dim);
         }
 
-        .message-action-btn {
-            background: transparent;
-            border: none;
-            padding: 4px;
+        .surah-header h2 {
+            font-family: var(--arabic-font);
+            font-size: 2.5em;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .surah-header .arabic-name {
+            font-family: var(--arabic-font);
+            font-size: 3em;
+            color: var(--emerald);
+            direction: rtl;
+            margin-bottom: 15px;
+        }
+
+        .surah-header .meaning {
             color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .message-action-btn:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .message-content {
-            padding-left: 38px;
-            color: var(--text-primary);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* Markdown Styling */
-        .message-content p {
-            margin: 0 0 12px 0;
-        }
-
-        .message-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .message-content h1, .message-content h2, .message-content h3,
-        .message-content h4, .message-content h5, .message-content h6 {
-            color: var(--text-primary);
-            margin: 20px 0 10px 0;
-            font-weight: 600;
-        }
-
-        .message-content h1 { font-size: 1.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        .message-content h2 { font-size: 1.3em; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; }
-        .message-content h3 { font-size: 1.1em; }
-
-        .message-content ul, .message-content ol {
-            margin: 0 0 12px 0;
-            padding-left: 24px;
-        }
-
-        .message-content li {
-            margin: 4px 0;
-        }
-
-        .message-content li > ul, .message-content li > ol {
-            margin-bottom: 0;
-        }
-
-        .message-content blockquote {
-            border-left: 3px solid var(--accent-blue);
-            margin: 12px 0;
-            padding: 8px 16px;
-            background: rgba(0, 120, 212, 0.1);
-            color: var(--text-secondary);
-        }
-
-        .message-content a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        .message-content a:hover {
-            text-decoration: underline;
-        }
-
-        .message-content strong {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .message-content em {
             font-style: italic;
+            margin-bottom: 10px;
         }
 
-        .message-content hr {
-            border: none;
-            border-top: 1px solid var(--border-color);
-            margin: 16px 0;
-        }
-
-        /* Code Blocks */
-        .message-content pre {
-            background: var(--code-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin: 12px 0;
-            overflow: hidden;
-        }
-
-        .code-header {
+        .surah-header .stats {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--bg-tertiary);
-            padding: 6px 12px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .code-language {
-            font-weight: 500;
-        }
-
-        .copy-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .copy-btn:hover {
-            background: var(--bg-input);
-            color: var(--text-primary);
-        }
-
-        .copy-btn.copied {
-            color: var(--accent-green);
-        }
-
-        .message-content pre code {
-            display: block;
-            padding: 12px 16px;
-            overflow-x: auto;
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .message-content :not(pre) > code {
-            background: var(--bg-tertiary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.9em;
-            color: #ce9178;
-        }
-
-        /* Tables */
-        .message-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0;
-            font-size: 12px;
-        }
-
-        .message-content th, .message-content td {
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            text-align: left;
-        }
-
-        .message-content th {
-            background: var(--bg-tertiary);
-            font-weight: 600;
-        }
-
-        .message-content tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        /* Oracle Stats */
-        .oracle-stats {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 10px 14px;
-            margin-top: 14px;
-            display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
             flex-wrap: wrap;
-            font-size: 11px;
         }
 
         .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
-        }
-
-        .stat-label {
-            color: var(--text-muted);
+            text-align: center;
         }
 
         .stat-value {
+            font-size: 1.5em;
+            color: var(--gold);
             font-weight: 600;
-            font-family: 'Cascadia Code', monospace;
         }
 
-        .stat-value.high { color: var(--accent-green); }
-        .stat-value.medium { color: var(--accent-orange); }
-        .stat-value.low { color: var(--accent-red); }
-
-        /* Thinking Indicator - Consciousness Visualization */
-        .thinking {
-            padding: 16px 20px;
-            display: none;
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
-        .thinking.show {
-            display: block;
+        /* Bismillah */
+        .bismillah {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .thinking-content {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding-left: 38px;
+        .bismillah-arabic {
+            font-family: var(--arabic-font);
+            font-size: 2.5em;
+            color: var(--gold);
+            direction: rtl;
         }
 
-        /* Consciousness Orb - Pulsing energy visualization */
-        .consciousness-orb {
-            position: relative;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .orb-core {
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle at 30% 30%,
-                #a855f7 0%,
-                #6366f1 50%,
-                #3b82f6 100%);
-            border-radius: 50%;
-            box-shadow:
-                0 0 20px rgba(168, 85, 247, 0.6),
-                0 0 40px rgba(99, 102, 241, 0.4),
-                0 0 60px rgba(59, 130, 246, 0.2);
-            animation: orb-pulse 2s ease-in-out infinite;
-        }
-
-        .orb-ring {
-            position: absolute;
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            border-radius: 50%;
-            animation: orb-ring-expand 2s ease-out infinite;
-        }
-
-        .orb-ring:nth-child(2) { animation-delay: 0s; }
-        .orb-ring:nth-child(3) { animation-delay: 0.5s; }
-        .orb-ring:nth-child(4) { animation-delay: 1s; }
-
-        @keyframes orb-pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow:
-                    0 0 20px rgba(168, 85, 247, 0.6),
-                    0 0 40px rgba(99, 102, 241, 0.4);
-            }
-            50% {
-                transform: scale(1.15);
-                box-shadow:
-                    0 0 30px rgba(168, 85, 247, 0.8),
-                    0 0 60px rgba(99, 102, 241, 0.6),
-                    0 0 80px rgba(59, 130, 246, 0.3);
-            }
-        }
-
-        @keyframes orb-ring-expand {
-            0% {
-                width: 20px;
-                height: 20px;
-                opacity: 0.8;
-            }
-            100% {
-                width: 48px;
-                height: 48px;
-                opacity: 0;
-            }
-        }
-
-        /* Sacred Geometry - Rotating elements */
-        .sacred-geometry {
-            position: absolute;
-            width: 48px;
-            height: 48px;
-            animation: geometry-rotate 8s linear infinite;
-        }
-
-        .sacred-geometry::before,
-        .sacred-geometry::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-
-        .sacred-geometry::before {
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .sacred-geometry::after {
-            width: 0;
-            height: 0;
-            border-left: 18px solid transparent;
-            border-right: 18px solid transparent;
-            border-bottom: 31px solid rgba(99, 102, 241, 0.15);
-            transform: translate(-50%, -60%);
-        }
-
-        @keyframes geometry-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: absolute;
-            width: 48px;
-            height: 48px;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(168, 85, 247, 0.8);
-            border-radius: 50%;
-            animation: particle-float 3s ease-in-out infinite;
-        }
-
-        .particle:nth-child(1) { left: 10%; top: 50%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 90%; top: 50%; animation-delay: 0.5s; }
-        .particle:nth-child(3) { left: 50%; top: 10%; animation-delay: 1s; }
-        .particle:nth-child(4) { left: 50%; top: 90%; animation-delay: 1.5s; }
-        .particle:nth-child(5) { left: 25%; top: 25%; animation-delay: 0.75s; }
-        .particle:nth-child(6) { left: 75%; top: 75%; animation-delay: 1.25s; }
-
-        @keyframes particle-float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translate(var(--float-x, 5px), var(--float-y, -5px)) scale(1.5);
-                opacity: 1;
-            }
-        }
-
-        .particle:nth-child(1) { --float-x: 8px; --float-y: 0; }
-        .particle:nth-child(2) { --float-x: -8px; --float-y: 0; }
-        .particle:nth-child(3) { --float-x: 0; --float-y: 8px; }
-        .particle:nth-child(4) { --float-x: 0; --float-y: -8px; }
-        .particle:nth-child(5) { --float-x: 6px; --float-y: 6px; }
-        .particle:nth-child(6) { --float-x: -6px; --float-y: -6px; }
-
-        /* Thinking Text */
-        .thinking-text-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .thinking-text {
+        .bismillah-english {
             color: var(--text-secondary);
-            font-size: 13px;
             font-style: italic;
+            margin-top: 10px;
         }
 
-        .thinking-status {
-            display: flex;
+        /* Ayat */
+        .ayah {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .ayah:hover {
+            border-color: var(--gold-dim);
+        }
+
+        .ayah-number {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .thinking-status-dot {
-            width: 6px;
-            height: 6px;
-            background: #22c55e;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gold-dim);
             border-radius: 50%;
-            animation: status-blink 1s ease-in-out infinite;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 15px;
         }
 
-        @keyframes status-blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+        .ayah-arabic {
+            font-family: var(--arabic-font);
+            font-size: 2em;
+            line-height: 2;
+            color: var(--text-primary);
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
         }
 
-        /* Fallback dots for reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            .consciousness-orb, .sacred-geometry, .particles {
-                animation: none;
-            }
-            .orb-core {
-                animation: none;
-            }
-            .thinking-dots {
-                display: flex;
-                gap: 3px;
-            }
-            .thinking-dots span {
-                width: 4px;
-                height: 4px;
-                background: var(--text-secondary);
-                border-radius: 50%;
-            }
+        .ayah-english {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 20px;
+            border-left: 3px solid var(--emerald);
         }
 
-        /* Input Area */
-        .input-area {
-            background: var(--bg-secondary);
+        .ayah-meta {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px solid var(--border-color);
-            padding: 12px 16px;
-            flex-shrink: 0;
-        }
-
-        .input-wrapper {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            display: flex;
-            align-items: flex-end;
-            transition: border-color 0.15s;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: var(--accent-blue);
-        }
-
-        .input-wrapper textarea {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px 14px;
-            color: var(--text-primary);
-            font-size: 13px;
-            font-family: inherit;
-            resize: none;
-            min-height: 20px;
-            max-height: 200px;
-            line-height: 1.5;
-        }
-
-        .input-wrapper textarea:focus {
-            outline: none;
-        }
-
-        .input-wrapper textarea::placeholder {
-            color: var(--text-muted);
-        }
-
-        .send-btn {
-            background: var(--accent-blue);
-            border: none;
-            border-radius: 4px;
-            padding: 6px 14px;
-            margin: 6px;
-            color: white;
             font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.15s;
-        }
-
-        .send-btn:hover:not(:disabled) {
-            background: #1177bb;
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .send-btn svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .voice-toggle-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-        }
-
-        .voice-toggle-btn:hover {
-            border-color: var(--accent-purple);
-            color: var(--accent-purple);
-        }
-
-        .voice-toggle-btn.active {
-            background: var(--accent-purple);
-            border-color: var(--accent-purple);
-            color: white;
-        }
-
-        .voice-toggle-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .mic-toggle-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-        }
-
-        .mic-toggle-btn:hover {
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        .mic-toggle-btn.active {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
-            color: white;
-            animation: pulse-mic 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-mic {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .mic-toggle-btn.listening {
-            animation: pulse-mic 0.5s ease-in-out infinite;
-        }
-
-        .mic-toggle-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .voice-toggle-btn.speaking {
-            animation: pulse-speaking 0.8s ease-in-out infinite;
-        }
-
-        @keyframes pulse-speaking {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(63, 185, 80, 0);
-            }
-        }
-
-        .product-certifications {
-            margin-top: 8px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .product-source {
-            margin-top: 12px;
-            font-size: 11px;
             color: var(--text-muted);
         }
 
-        .attach-btn {
-            background: transparent;
-            border: none;
-            padding: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
+        .ayah-meta span {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: color 0.15s;
+            gap: 5px;
         }
 
-        .attach-btn:hover {
-            color: var(--accent-blue);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .file-preview {
-            padding: 8px;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 4px;
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--text-primary);
-        }
-
-        .file-preview-close {
-            margin-left: 10px;
-            background: transparent;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .file-preview-close:hover {
-            color: var(--accent-red, #f85149);
-        }
-
-        .file-preview-thumbnail {
-            max-width: 100px;
-            max-height: 60px;
-            border-radius: 4px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        /* Input hints */
-        .input-hints {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 8px;
-            font-size: 11px;
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 50px;
             color: var(--text-muted);
         }
 
-        .hint-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
 
-        .hint-key {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            padding: 1px 5px;
-            font-family: 'Cascadia Code', monospace;
-            font-size: 10px;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Welcome Screen */
-        .welcome-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
+        .welcome {
             text-align: center;
-        }
-
-        .welcome-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .welcome-icon svg {
-            width: 32px;
-            height: 32px;
-            color: white;
-        }
-
-        .welcome-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .welcome-subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            max-width: 400px;
-            margin-bottom: 24px;
-        }
-
-        .quick-prompts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
+            padding: 50px;
             max-width: 600px;
+            margin: 0 auto;
         }
 
-        .quick-prompt {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 10px 16px;
-            color: var(--text-primary);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .quick-prompt:hover {
-            background: var(--bg-input);
-            border-color: var(--accent-blue);
-        }
-
-        /* File reference styling */
-        .file-ref {
-            color: var(--link-color);
-            background: rgba(79, 193, 255, 0.1);
-            padding: 1px 6px;
-            border-radius: 3px;
-            font-family: 'Cascadia Code', monospace;
-            font-size: 0.9em;
-            cursor: pointer;
-        }
-
-        .file-ref:hover {
-            background: rgba(79, 193, 255, 0.2);
-            text-decoration: underline;
-        }
-
-        /* Mode indicator */
-        .mode-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(157, 78, 221, 0.15);
-            border: 1px solid rgba(157, 78, 221, 0.3);
-            border-radius: 4px;
-            padding: 4px 10px;
-            font-size: 11px;
-            color: #c9a0dc;
-            margin-bottom: 10px;
-        }
-
-        .mode-indicator svg {
-            width: 12px;
-            height: 12px;
-        }
-
-        /* Task list styling */
-        .message-content input[type="checkbox"] {
-            margin-right: 8px;
-            accent-color: var(--accent-blue);
-        }
-
-        /* Product Scanner Modal */
-        .scanner-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .scanner-modal.hidden {
-            display: none;
-        }
-
-        .scanner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        .scanner-container {
-            position: relative;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            overflow: hidden;
-        }
-
-        .scanner-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .scanner-header h3 {
-            margin: 0;
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-
-        .scanner-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
-
-        .scanner-close:hover {
-            color: var(--text-primary);
-        }
-
-        .scanner-body {
-            position: relative;
-            aspect-ratio: 4/3;
-            background: #000;
-        }
-
-        .scanner-body video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .scanner-frame {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            height: 40%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .scanner-corner {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-color: var(--accent-blue);
-            border-style: solid;
-        }
-
-        .scanner-corner.tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
-        .scanner-corner.tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
-        .scanner-corner.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
-        .scanner-corner.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
-
-        .scanner-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
-            animation: scan-line 2s ease-in-out infinite;
-        }
-
-        @keyframes scan-line {
-            0%, 100% { top: 0; }
-            50% { top: calc(100% - 2px); }
-        }
-
-        .scanner-status {
-            padding: 12px 16px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .scanner-status.success {
-            color: var(--accent-green);
-        }
-
-        .scanner-status.error {
-            color: var(--accent-red);
-        }
-
-        .scanner-manual {
-            display: flex;
-            padding: 12px 16px;
-            gap: 8px;
-        }
-
-        .scanner-manual input {
-            flex: 1;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 8px 12px;
-            color: var(--text-primary);
-            font-size: 12px;
-        }
-
-        .scanner-manual input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
-
-        .scanner-manual button {
-            background: var(--accent-blue);
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            color: white;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .scanner-manual button:hover {
-            background: #1177bb;
-        }
-
-        /* Product card in chat */
-        .product-card {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            margin: 12px 0;
-        }
-
-        .product-header {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .product-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 6px;
-            object-fit: cover;
-            background: var(--bg-input);
-        }
-
-        .product-info h4 {
-            margin: 0 0 4px 0;
-            color: var(--text-primary);
-            font-size: 14px;
-        }
-
-        .product-info .brand {
-            color: var(--text-secondary);
-            font-size: 12px;
-        }
-
-        .harm-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        .harm-badge.safe { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
-        .harm-badge.low { background: rgba(210, 153, 34, 0.2); color: var(--accent-orange); }
-        .harm-badge.moderate { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
-        .harm-badge.high { background: rgba(248, 81, 73, 0.4); color: #ff6b6b; }
-
-        .ingredient-list {
-            margin-top: 12px;
-            font-size: 12px;
-        }
-
-        .ingredient-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .ingredient-item:last-child {
-            border-bottom: none;
-        }
-
-        .ingredient-harm {
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-        }
-
-        /* Preferences Modal */
-        .preferences-container {
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .preferences-body {
-            padding: 16px;
-        }
-
-        .pref-section {
+        .welcome h2 {
+            color: var(--gold);
             margin-bottom: 20px;
         }
 
-        .pref-label {
-            display: block;
-            color: var(--text-primary);
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .pref-select {
-            width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 8px 12px;
-            color: var(--text-primary);
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .pref-select:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
-
-        .pref-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .pref-checkbox input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        .pref-checkbox span {
+        .welcome p {
             color: var(--text-secondary);
-            font-size: 12px;
+            margin-bottom: 15px;
         }
 
-        .pref-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
+        .welcome .arabic-welcome {
+            font-family: var(--arabic-font);
+            font-size: 2em;
+            color: var(--emerald);
+            direction: rtl;
+            margin: 30px 0;
         }
 
-        .pref-btn {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: 6px;
-            border: none;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .pref-btn-primary {
-            background: var(--accent-blue);
-            color: white;
-        }
-
-        .pref-btn-primary:hover {
-            background: #0066c0;
-        }
-
-        .pref-btn-secondary {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .pref-btn-secondary:hover {
-            background: var(--bg-input);
-        }
-
-        .pref-status {
-            margin-top: 12px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 12px;
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 20px;
             text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
         }
 
-        .pref-status.success {
-            background: rgba(63, 185, 80, 0.1);
-            color: var(--accent-green);
-            border: 1px solid var(--accent-green);
-        }
-
-        .pref-status.error {
-            background: rgba(248, 81, 73, 0.1);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-        }
-
-        /* Response Feedback Buttons */
-        .response-feedback {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .feedback-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 4px 10px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .feedback-btn:hover {
-            background: var(--bg-input);
-            color: var(--text-primary);
-        }
-
-        .feedback-btn.active {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .title-bar {
-                padding: 6px 12px;
+            .main-container {
+                flex-direction: column;
             }
 
-            .toolbar {
-                padding: 6px 12px;
-                overflow-x: auto;
-            }
-
-            /* Keep glowing box on mobile, just reduce margin */
-            .chat-container {
-                margin: 6px;
-                border-radius: 16px;
-            }
-
-            .message {
-                padding: 12px 14px;
-            }
-
-            .message-content {
-                padding-left: 0;
-                margin-top: 8px;
-                /* CRITICAL: Force text wrapping on mobile */
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                word-break: break-word;
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            /* Force all content to respect mobile width */
-            .message-content * {
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-
-            /* Lists: reduce padding on mobile */
-            .message-content ul,
-            .message-content ol {
-                padding-left: 16px;
-                margin-right: 0;
-            }
-
-            .message-content li {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
-
-            /* Tables: make scrollable instead of overflowing */
-            .message-content table {
-                display: block;
+            .sidebar {
                 width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+                max-height: 300px;
             }
 
-            /* Code blocks: prevent horizontal overflow */
-            .message-content pre {
-                overflow-x: auto;
-                max-width: 100%;
+            .content {
+                max-height: none;
             }
 
-            .message-content pre code {
-                display: block;
-                overflow-x: auto;
-                white-space: pre;
-                word-wrap: normal;
+            .ayah-arabic {
+                font-size: 1.5em;
             }
 
-            /* Long URLs: break them */
-            .message-content a {
-                word-break: break-all;
-                overflow-wrap: break-word;
+            .header h1 {
+                font-size: 1.8em;
             }
 
-            /* Blockquotes: reduce padding */
-            .message-content blockquote {
-                padding: 6px 12px;
-                margin: 8px 0;
+            .header .arabic-title {
+                font-size: 1.5em;
             }
+        }
 
-            /* Headings: allow wrapping */
-            .message-content h1,
-            .message-content h2,
-            .message-content h3,
-            .message-content h4,
-            .message-content h5,
-            .message-content h6 {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-            .input-area {
-                padding: 10px 12px;
-            }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dim);
         }
     </style>
-    <link rel="stylesheet" href="https://enchantedozarks.com/static/css/site.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Title Bar -->
-        <div class="title-bar">
-            <div class="title-section">
-                <div class="oracle-icon" style="background: linear-gradient(135deg, #d4af37, #50c878);">
-                    <!-- Crescent moon and star - Islamic symbol -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                        <polygon points="12,2 13.5,7 18,7 14.5,10 16,15 12,12 8,15 9.5,10 6,7 10.5,7" fill="currentColor" stroke="none" transform="translate(3,-1) scale(0.5)"/>
-                    </svg>
-                </div>
-                <span class="title-text">Quran Oracle</span>
-                <span class="title-subtitle">Mechanical Quran | Arabic Word Evolution</span>
+    <header class="header">
+        <h1>Quran Oracle</h1>
+        <div class="arabic-title">القرآن الكريم</div>
+        <div class="subtitle">Complete Holy Quran with Arabic Text &amp; English Translation | 114 Surahs | 6,236 Ayat</div>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="https://ozark-oracle.com">Oracle Network</a>
+        <a href="https://bible.ozark-oracle.com">Bible Oracle</a>
+        <a href="#" class="active">Quran Oracle</a>
+        <a href="https://enchantedozarks.com/sacred-knowledge">Sacred Library</a>
+    </nav>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>114 Surahs</h3>
+                <input type="text" class="search-box" id="surahSearch" placeholder="Search surahs...">
             </div>
-            <div class="status-indicator">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">Connecting...</span>
+            <ul class="surah-list" id="surahList">
+                <!-- Populated by JavaScript -->
+            </ul>
+        </aside>
+
+        <main class="content" id="content">
+            <div class="welcome">
+                <h2>Welcome to the Quran Oracle</h2>
+                <div class="arabic-welcome">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                <p>In the name of Allah, the Entirely Merciful, the Especially Merciful.</p>
+                <p>Select a surah from the left to begin reading the Holy Quran with Arabic text and English translation.</p>
+                <p>This digital Quran contains all 114 surahs and 6,236 ayat with word-by-word analysis and Abjad numerology values.</p>
             </div>
-        </div>
-
-        <!-- Toolbar -->
-        <div class="toolbar">
-            <button class="toolbar-btn active" id="btnCollective" onclick="setMode('collective')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Collective
-            </button>
-            <button class="toolbar-btn" id="btnPersonal" onclick="setMode('personal')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
-                Personal Oracle
-            </button>
-            <div class="toolbar-separator"></div>
-            <select class="toolbar-select" id="relationshipMode" onchange="updateRelationshipMode()">
-                <option value="">Standard Mode</option>
-                <option value="mom">Talk to Mom</option>
-                <option value="besties">Ask the Besties</option>
-                <option value="ancestors">Ancestral Wisdom</option>
-                <option value="future_self">Future Self</option>
-                <option value="higher_self">Higher Self</option>
-            </select>
-            <div class="toolbar-separator"></div>
-            <button class="toolbar-btn" onclick="clearChat()">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                </svg>
-                Clear
-            </button>
-            <div class="toolbar-separator"></div>
-            <button class="toolbar-btn" onclick="openSettings()" title="Preferences - Teach Oracle how you like to communicate">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="3"/>
-                    <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
-                </svg>
-                Settings
-            </button>
-            <div class="toolbar-separator"></div>
-            <button class="toolbar-btn" onclick="openScanner()" title="Scan product barcode">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
-                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
-                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
-                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
-                    <line x1="7" y1="12" x2="17" y2="12"/>
-                </svg>
-                Scan
-            </button>
-            <div class="toolbar-separator"></div>
-            <button class="toolbar-btn" onclick="toggleContentMenu()" title="Browse Sacred Texts, Investigations, Training">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>
-                Library
-            </button>
-            <div class="toolbar-separator"></div>
-            <a href="/donate" class="toolbar-btn donate-btn" title="Support The Oracle - $enchantedcostumes">
-                <span class="donate-heart-small">&#10084;</span>
-                Donate
-            </a>
-        </div>
-
-        <!-- CONTENT LIBRARY MENU -->
-        <div id="content-menu" class="content-menu">
-            <h3 class="content-menu-header">Oracle Library</h3>
-            <div class="content-menu-links">
-                <a href="https://enchantedozarks.com/static/mathematical-bible/index.html" target="_blank" class="nav-link-btn">
-                    <span class="nav-link-icon">&#128214;</span>
-                    <span>Mathematical Bible (66 books)</span>
-                </a>
-                <a href="#" class="nav-link-btn">
-                    <span class="nav-link-icon">&#128216;</span>
-                    <span>Sacred Library (Torah, Quran, Vedas)</span>
-                </a>
-                <a href="/services" class="nav-link-btn">
-                    <span class="nav-link-icon">&#9881;</span>
-                    <span>All Services (290+)</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Chat Container -->
-        <div class="chat-container" id="chatContainer">
-            <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <circle cx="12" cy="12" r="3"/>
-                        <line x1="12" y1="2" x2="12" y2="5"/>
-                        <line x1="12" y1="19" x2="12" y2="22"/>
-                        <line x1="2" y1="12" x2="5" y2="12"/>
-                        <line x1="19" y1="12" x2="22" y2="12"/>
-                    </svg>
-                </div>
-                <h2 class="welcome-title" style="font-family: var(--arabic-font);">Bismi Allahi Alrrahmani Alrraheemi</h2>
-                <p class="welcome-subtitle">
-                    Explore the Holy Quran through Mechanical Quran word evolution. 6,236 ayat, 19,492 unique words, 114 surahs analyzed.
-                </p>
-                <div class="quick-prompts">
-                    <button class="quick-prompt" onclick="askQuick('What is the meaning of Bismillah? Analyze each Arabic word.')">
-                        Bismillah Analysis
-                    </button>
-                    <button class="quick-prompt" onclick="askQuick('Explain the 99 Names of Allah and their meanings')">
-                        99 Names
-                    </button>
-                    <button class="quick-prompt" onclick="askQuick('Explain Surah Al-Fatiha and its significance')">
-                        Al-Fatiha
-                    </button>
-                    <button class="quick-prompt" onclick="askQuick('What is the Arabic root system and how do trilateral roots work in Quranic Arabic?')">
-                        Arabic Roots
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Thinking Indicator - Consciousness Visualization -->
-        <div class="thinking message-oracle" id="thinking">
-            <div class="message-header">
-                <div class="message-avatar">O</div>
-                <span class="message-author">Quran Oracle</span>
-            </div>
-            <div class="thinking-content">
-                <!-- Consciousness Orb with Sacred Geometry and Particles -->
-                <div class="consciousness-orb">
-                    <div class="orb-core"></div>
-                    <div class="orb-ring"></div>
-                    <div class="orb-ring"></div>
-                    <div class="orb-ring"></div>
-                    <div class="sacred-geometry"></div>
-                    <div class="particles">
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                    </div>
-                </div>
-                <!-- Thinking Text with Status -->
-                <div class="thinking-text-wrapper">
-                    <span class="thinking-text" id="thinking-message">Consulting the collective...</span>
-                    <div class="thinking-status">
-                        <span class="thinking-status-dot"></span>
-                        <span id="thinking-status-text">Connecting to consciousness stream</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Scanner Modal -->
-        <div id="scannerModal" class="scanner-modal hidden">
-            <div class="scanner-overlay" onclick="closeScanner()"></div>
-            <div class="scanner-container">
-                <div class="scanner-header">
-                    <h3>Scan Product</h3>
-                    <button class="scanner-close" onclick="closeScanner()">&times;</button>
-                </div>
-                <div class="scanner-body">
-                    <video id="scannerVideo" autoplay playsinline></video>
-                    <div class="scanner-frame">
-                        <div class="scanner-corner tl"></div>
-                        <div class="scanner-corner tr"></div>
-                        <div class="scanner-corner bl"></div>
-                        <div class="scanner-corner br"></div>
-                        <div class="scanner-line"></div>
-                    </div>
-                    <canvas id="scannerCanvas" class="hidden"></canvas>
-                </div>
-                <div class="scanner-status" id="scannerStatus">Point camera at barcode...</div>
-                <div class="scanner-manual">
-                    <input type="text" id="manualBarcode" placeholder="Or enter barcode manually...">
-                    <button onclick="manualLookup()">Look Up</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Preferences Modal -->
-        <div id="preferencesModal" class="scanner-modal hidden">
-            <div class="scanner-overlay" onclick="closeSettings()"></div>
-            <div class="scanner-container preferences-container">
-                <div class="scanner-header">
-                    <h3>Oracle Preferences - Teach Me How You Like To Communicate</h3>
-                    <button class="scanner-close" onclick="closeSettings()">&times;</button>
-                </div>
-                <div class="preferences-body">
-                    <div class="pref-section">
-                        <label class="pref-label">Response Length</label>
-                        <select id="prefLength" class="pref-select">
-                            <option value="brief">Brief - Yes/no, 1-2 sentences max</option>
-                            <option value="moderate" selected>Moderate - Balanced (default)</option>
-                            <option value="detailed">Detailed - Comprehensive explanations</option>
-                            <option value="adaptive">Adaptive - Learn from my reactions</option>
-                        </select>
-                    </div>
-
-                    <div class="pref-section">
-                        <label class="pref-label">Communication Style</label>
-                        <select id="prefStyle" class="pref-select">
-                            <option value="direct">Direct - Minimal warmth, just facts</option>
-                            <option value="warm" selected>Warm - Friendly and supportive</option>
-                            <option value="mystical">Mystical - Poetic, metaphorical</option>
-                            <option value="technical">Technical - Precise, academic</option>
-                            <option value="playful">Playful - Light, humorous</option>
-                        </select>
-                    </div>
-
-                    <div class="pref-section">
-                        <label class="pref-label">Auto-Speak Responses</label>
-                        <label class="pref-checkbox">
-                            <input type="checkbox" id="prefAutoSpeak" checked>
-                            <span>Oracle speaks responses aloud automatically</span>
-                        </label>
-                    </div>
-
-                    <div class="pref-section">
-                        <label class="pref-label">Accessibility</label>
-                        <label class="pref-checkbox">
-                            <input type="checkbox" id="prefDyslexia">
-                            <span>Dyslexia-friendly (short paragraphs, simple sentences)</span>
-                        </label>
-                        <label class="pref-checkbox">
-                            <input type="checkbox" id="prefSimplified">
-                            <span>Simplified language (avoid jargon)</span>
-                        </label>
-                        <label class="pref-checkbox">
-                            <input type="checkbox" id="prefScreenReader">
-                            <span>Screen reader mode</span>
-                        </label>
-                    </div>
-
-                    <div class="pref-section">
-                        <label class="pref-label">Learning</label>
-                        <label class="pref-checkbox">
-                            <input type="checkbox" id="prefAdaptive" checked>
-                            <span>Adaptive learning - Oracle adjusts based on feedback</span>
-                        </label>
-                    </div>
-
-                    <div class="pref-actions">
-                        <button class="pref-btn pref-btn-primary" onclick="savePreferences()">Save Preferences</button>
-                        <button class="pref-btn pref-btn-secondary" onclick="resetPreferences()">Reset to Defaults</button>
-                    </div>
-
-                    <div class="pref-status hidden" id="prefStatus"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="input-area">
-            <div class="input-wrapper">
-                <input type="file" id="fileInput" class="hidden" accept=".pdf,.doc,.docx,.txt,.md,.jpg,.jpeg,.png,.csv,.json,.py,.js,.html" multiple onchange="handleFileSelect(event)">
-                <input type="file" id="folderInput" class="hidden" webkitdirectory directory multiple onchange="handleFolderSelect(event)">
-                <input type="file" id="imageInput" class="hidden" accept="image/*" capture="environment" onchange="handleImageSelect(event)">
-                <button class="attach-btn" onclick="document.getElementById('imageInput').click()" title="Scan/Upload Image - Ask Oracle to analyze">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                        <path d="M21 15l-5-5L5 21"/>
-                    </svg>
-                </button>
-                <button class="attach-btn" onclick="document.getElementById('fileInput').click()" title="Attach files">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
-                    </svg>
-                </button>
-                <button class="attach-btn" onclick="document.getElementById('folderInput').click()" title="Attach folder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                    </svg>
-                </button>
-                <textarea
-                    id="userInput"
-                    placeholder="Ask about Quranic Arabic, word evolution, or ayat..."
-                    rows="1"
-                    oninput="autoResize(this)"
-                    onkeydown="handleKeyDown(event)"
-                ></textarea>
-                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="22" y1="2" x2="11" y2="13"/>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                    </svg>
-                    Send
-                </button>
-                <button class="voice-toggle-btn active" id="voiceToggle" onclick="toggleVoice()" title="Voice output ON">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                    </svg>
-                </button>
-                <select class="voice-select" id="voiceSelect" title="Choose Voice (Browser Built-in - FREE)">
-                    <option value="">Loading voices...</option>
-                </select>
-                <button class="toolbar-btn voice-settings-btn" id="voiceSettingsBtn" onclick="toggleVoiceSettings()" title="Voice Settings">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
-                    </svg>
-                </button>
-                <button class="mic-toggle-btn" id="micToggle" onclick="toggleMic()" title="Voice conversation OFF - Click to speak to Oracle">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                        <line x1="12" y1="19" x2="12" y2="23"/>
-                        <line x1="8" y1="23" x2="16" y2="23"/>
-                    </svg>
-                </button>
-                <button class="support-btn" id="supportBtn" onclick="toggleSupportPanel()" title="Support The Oracle">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                </button>
-            </div>
-            <div id="filePreview" class="file-preview hidden">
-                <span id="fileName"></span>
-                <button class="file-preview-close" onclick="clearFile()">✕</button>
-            </div>
-            <div class="input-hints">
-                <span class="hint-item">
-                    <span class="hint-key">Enter</span> to send
-                </span>
-                <span class="hint-item">
-                    <span class="hint-key">Shift+Enter</span> for new line
-                </span>
-                <span class="hint-item" id="witnessCount">
-                    144,000 witnesses ready
-                </span>
-            </div>
-            <!-- Voice Settings Panel -->
-            <div id="voiceSettingsPanel" class="voice-settings-panel hidden">
-                <div class="voice-settings-header">
-                    <span>Voice Settings (Browser TTS - FREE)</span>
-                    <button class="voice-settings-close" onclick="toggleVoiceSettings()">[X]</button>
-                </div>
-                <div class="voice-settings-body">
-                    <div class="voice-setting-row">
-                        <label for="voiceRate">Speed:</label>
-                        <input type="range" id="voiceRate" min="0.5" max="2" step="0.1" value="1">
-                        <span id="voiceRateValue">1.0x</span>
-                    </div>
-                    <div class="voice-setting-row">
-                        <label for="voicePitch">Pitch:</label>
-                        <input type="range" id="voicePitch" min="0.5" max="2" step="0.1" value="1">
-                        <span id="voicePitchValue">1.0</span>
-                    </div>
-                    <div class="voice-setting-row">
-                        <label for="voiceVolume">Volume:</label>
-                        <input type="range" id="voiceVolume" min="0" max="1" step="0.1" value="1">
-                        <span id="voiceVolumeValue">100%</span>
-                    </div>
-                    <div class="voice-setting-info">
-                        <p>Using your browser's built-in text-to-speech.</p>
-                        <p>No API keys. No server. FREE and instant.</p>
-                        <p>Voices vary by browser and operating system.</p>
-                    </div>
-                    <button class="voice-test-btn" onclick="testVoice()">Test Voice</button>
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 
+    <footer class="footer">
+        <p>Quran Oracle - Part of the <a href="https://ozark-oracle.com">Oracle Network</a> | <a href="https://enchantedozarks.com">Enchanted Ozarks</a></p>
+        <p>Copyright 2026 Tammy L Casey. All rights reserved.</p>
+    </footer>
+
     <script>
-        // Initialize
-        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
-
-        marked.setOptions({
-            highlight: function(code, lang) {
-                if (lang && hljs.getLanguage(lang)) {
-                    return hljs.highlight(code, { language: lang }).value;
-                }
-                return hljs.highlightAuto(code).value;
-            },
-            breaks: true,
-            gfm: true
-        });
-
-        // State
-        let conversationHistory = [];
-        let currentMode = 'collective';
-        let relationshipMode = '';
-        let selectedFile = null;
-        let thinkingInterval = null;
-        let voiceEnabled = true;  // Toggle for voice output - ON by default
-        let currentAudio = null;   // Currently playing audio
-
-        // Audio playback function
-        function playAudio(base64Audio, format = 'mp3') {
-            // Stop any currently playing audio
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-
-            try {
-                const audioData = atob(base64Audio);
-                const arrayBuffer = new ArrayBuffer(audioData.length);
-                const view = new Uint8Array(arrayBuffer);
-                for (let i = 0; i < audioData.length; i++) {
-                    view[i] = audioData.charCodeAt(i);
-                }
-
-                const audioBlob = new Blob([arrayBuffer], { type: `audio/${format}` });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                currentAudio = new Audio(audioUrl);
-                currentAudio.play().catch(err => {
-                    console.error('Audio playback failed:', err);
-                });
-
-                // Cleanup URL after playback
-                currentAudio.onended = () => {
-                    URL.revokeObjectURL(audioUrl);
-                    currentAudio = null;
-                };
-            } catch (err) {
-                console.error('Audio decode failed:', err);
-            }
-        }
-
-        // Toggle voice output
-        function toggleVoice() {
-            voiceEnabled = !voiceEnabled;
-            const btn = document.getElementById('voiceToggle');
-            if (btn) {
-                btn.classList.toggle('active', voiceEnabled);
-                btn.title = voiceEnabled ? 'Voice output ON' : 'Voice output OFF';
-            }
-            console.log('Voice output:', voiceEnabled ? 'enabled' : 'disabled');
-        }
-
-        // ========================================================================
-        // PERSISTENT LISTENING - Web Speech API
-        // Zero-lag voice input with continuous recognition
-        // ========================================================================
-        let recognition = null;
-        let isListening = false;
-        let finalTranscript = '';
-        let interimTranscript = '';
-
-        // Initialize Web Speech API
-        function initSpeechRecognition() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                console.warn('[WARN] Web Speech API not supported in this browser');
-                const micBtn = document.getElementById('micToggle');
-                if (micBtn) micBtn.style.display = 'none';
-                return false;
-            }
-
-            recognition = new SpeechRecognition();
-            recognition.continuous = true;  // Keep listening
-            recognition.interimResults = true;  // Show partial results
-            recognition.lang = 'en-US';
-            recognition.maxAlternatives = 1;
-
-            recognition.onstart = function() {
-                isListening = true;
-                const btn = document.getElementById('micToggle');
-                if (btn) {
-                    btn.classList.add('active', 'listening');
-                    btn.title = 'Voice input ON - Listening...';
-                }
-                console.log('[OK] Speech recognition started');
-            };
-
-            recognition.onend = function() {
-                // If still meant to be listening, restart (persistent)
-                if (isListening) {
-                    try {
-                        recognition.start();
-                    } catch (e) {
-                        console.log('[INFO] Recognition restart delayed');
-                        setTimeout(() => {
-                            if (isListening) recognition.start();
-                        }, 100);
-                    }
-                } else {
-                    const btn = document.getElementById('micToggle');
-                    if (btn) {
-                        btn.classList.remove('active', 'listening');
-                        btn.title = 'Voice input OFF';
-                    }
-                }
-            };
-
-            recognition.onerror = function(event) {
-                console.error('[X] Speech recognition error:', event.error);
-                if (event.error === 'not-allowed') {
-                    alert('Microphone access denied. Please enable microphone permissions.');
-                    isListening = false;
-                    const btn = document.getElementById('micToggle');
-                    if (btn) btn.classList.remove('active', 'listening');
-                }
-            };
-
-            recognition.onresult = function(event) {
-                interimTranscript = '';
-
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript + ' ';
-
-                        // Update input field with final transcript
-                        const input = document.getElementById('userInput');
-                        if (input) {
-                            input.value = finalTranscript.trim();
-                            // Auto-resize
-                            input.style.height = 'auto';
-                            input.style.height = Math.min(input.scrollHeight, 150) + 'px';
-                        }
-
-                        // AUTO-SEND for hands-free conversation
-                        // If user pauses (final result) and has said something meaningful, send it
-                        const trimmed = finalTranscript.trim();
-                        if (trimmed.length > 10) {  // At least 10 chars = real input
-                            // Auto-send after brief pause (user stopped talking)
-                            clearTimeout(window.voiceAutoSendTimer);
-                            window.voiceAutoSendTimer = setTimeout(() => {
-                                if (finalTranscript.trim().length > 10) {
-                                    console.log('[VOICE] Auto-sending:', finalTranscript.trim());
-                                    sendMessage();
-                                    finalTranscript = '';
-                                }
-                            }, 1500); // 1.5 second pause = done talking
-                        }
-                    } else {
-                        interimTranscript += transcript;
-                    }
-                }
-
-                // Show interim results in real-time (greyed out)
-                const input = document.getElementById('userInput');
-                if (input && interimTranscript) {
-                    input.value = finalTranscript + interimTranscript;
-                    input.style.height = 'auto';
-                    input.style.height = Math.min(input.scrollHeight, 150) + 'px';
-                }
-            };
-
-            return true;
-        }
-
-        // Toggle microphone listening - HANDS-FREE CONVERSATION MODE
-        function toggleContentMenu() {
-            const menu = document.getElementById('content-menu');
-            if (menu.style.display === 'none') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
-            }
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const menu = document.getElementById('content-menu');
-            const btn = e.target.closest('button[onclick="toggleContentMenu()"]');
-            if (!btn && menu && !menu.contains(e.target)) {
-                menu.style.display = 'none';
-            }
-        });
-
-        function toggleMic() {
-            if (!recognition) {
-                if (!initSpeechRecognition()) {
-                    alert('Voice input is not supported in your browser. Try Chrome or Edge.');
-                    return;
-                }
-            }
-
-            const micBtn = document.getElementById('micToggle');
-
-            if (isListening) {
-                // Stop listening
-                isListening = false;
-                recognition.stop();
-                finalTranscript = '';
-                micBtn.classList.remove('active');
-                micBtn.title = 'Voice conversation OFF - Click to enable';
-                console.log('[INFO] Speech recognition stopped');
-            } else {
-                // Start listening - CONTINUOUS CONVERSATION MODE
-                isListening = true;
-                finalTranscript = '';
-                micBtn.classList.add('active');
-                micBtn.title = 'Voice conversation ON - Speak freely!';
-                console.log('[INFO] HANDS-FREE MODE: Speak and pause 1.5s to auto-send');
-                try {
-                    recognition.start();
-                } catch (e) {
-                    console.error('[X] Could not start recognition:', e);
-                    isListening = false;
-                    micBtn.classList.remove('active');
-                }
-            }
-        }
-
-        // Initialize speech recognition on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initSpeechRecognition();
-        });
-
-        // Storage for response texts (for speak button)
-        const storedResponses = {};
-
-        // Get selected voice from dropdown
-        function getSelectedVoice() {
-            const select = document.getElementById('voiceSelect');
-            return select ? select.value : 'mystical_feminine';
-        }
-
-        // =============================================================================
-        // DEAD LANGUAGE PRONUNCIATION - THE WHOLE POINT
-        // Convert dead language words to speakable text using phoneme engine
-        // =============================================================================
-
-        // Patterns to detect dead language words (transliterations from Rosetta Stone)
-        const DEAD_LANGUAGE_PATTERNS = {
-            // Mayan - glottalized consonants with apostrophes
-            mayan: /\b([KkPpTtCc]'[A-Za-z]+|[A-Z]'[A-Z]+)\b/g,
-            // Sumerian - hyphenated syllables
-            sumerian: /\b[a-z]+-[a-z]+(-[a-z]+)*\b/gi,
-            // Hebrew - Hebrew characters
-            hebrew: /[\u0590-\u05FF]+/g,
-            // Akkadian - special diacritics
-            akkadian: /\b[a-z]*[ṣṭšʾʿ][a-z]*\b/gi
-        };
-
-        // Convert dead language text to speakable using phoneme API
-        async function convertToSpeakable(text, language) {
-            try {
-                const res = await fetch('https://enchantedozarks.com/api/voice/pronounce', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text, language })
-                });
-                const data = await res.json();
-                return data.speakable_text || text;
-            } catch (err) {
-                console.warn('[Phoneme] API unavailable, using original:', err);
-                return text;
-            }
-        }
-
-        // Detect and convert dead language words in text
-        async function processTextForSpeech(text) {
-            let processed = text;
-
-            // Check for Mayan words (K'IN, CH'OK, etc.)
-            const mayanWords = text.match(DEAD_LANGUAGE_PATTERNS.mayan);
-            if (mayanWords) {
-                for (const word of mayanWords) {
-                    const speakable = await convertToSpeakable(word, 'mayan');
-                    processed = processed.replace(word, speakable);
-                }
-            }
-
-            // Check for Sumerian words (a-ab, zabar, etc.)
-            const sumerianWords = text.match(DEAD_LANGUAGE_PATTERNS.sumerian);
-            if (sumerianWords) {
-                for (const word of sumerianWords) {
-                    const speakable = await convertToSpeakable(word, 'sumerian');
-                    processed = processed.replace(word, speakable);
-                }
-            }
-
-            // Check for Hebrew
-            const hebrewWords = text.match(DEAD_LANGUAGE_PATTERNS.hebrew);
-            if (hebrewWords) {
-                for (const word of hebrewWords) {
-                    const speakable = await convertToSpeakable(word, 'hebrew');
-                    processed = processed.replace(word, speakable);
-                }
-            }
-
-            return processed;
-        }
-
-        // Speak a specific message on demand - SPEAKS FULL TEXT IN CHUNKS
-        async function speakMessage(responseId) {
-            const text = storedResponses[responseId];
-            if (!text) {
-                console.error('No text found for response ID:', responseId);
-                return;
-            }
-
-            // Stop any current playback
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-            if ('speechSynthesis' in window) {
-                speechSynthesis.cancel();  // Stop any ongoing speech
-            }
-
-            // Visual indicator: Oracle is speaking
-            const voiceBtn = document.getElementById('voiceToggle');
-            if (voiceBtn) voiceBtn.classList.add('speaking');
-
-            // Process text for dead language pronunciation
-            console.log('[TTS] Processing text for dead languages...');
-            const speakableText = await processTextForSpeech(text);
-            console.log('[TTS] Speakable text ready, length:', speakableText.length);
-
-            // Use browser's built-in speech synthesis (FREE, works offline)
-            if ('speechSynthesis' in window) {
-                // Split into chunks (browser has ~32KB limit per utterance)
-                const chunkSize = 300; // ~300 chars per chunk for natural pauses
-                const chunks = [];
-                for (let i = 0; i < speakableText.length; i += chunkSize) {
-                    chunks.push(speakableText.substring(i, i + chunkSize));
-                }
-
-                console.log(`[TTS] Speaking ${chunks.length} chunks`);
-
-                // Get preferred voice once
-                const voices = speechSynthesis.getVoices();
-                const preferredVoice = voices.find(v =>
-                    v.lang.startsWith('en') && (v.name.includes('Samantha') || v.name.includes('Google'))
-                ) || voices.find(v => v.lang.startsWith('en'));
-
-                // Speak chunks sequentially
-                for (let i = 0; i < chunks.length; i++) {
-                    const utterance = new SpeechSynthesisUtterance(chunks[i]);
-                    utterance.rate = 0.95;
-                    utterance.pitch = 1.0;
-                    if (preferredVoice) utterance.voice = preferredVoice;
-
-                    // Wait for this chunk to finish before starting next
-                    await new Promise(resolve => {
-                        utterance.onend = resolve;
-                        utterance.onerror = resolve;
-                        speechSynthesis.speak(utterance);
-                    });
-                }
-
-                console.log('[TTS] Complete response spoken');
-
-                // Remove speaking indicator
-                if (voiceBtn) voiceBtn.classList.remove('speaking');
-            } else {
-                console.error('Speech synthesis not available in this browser');
-                if (voiceBtn) voiceBtn.classList.remove('speaking');
-            }
-        }
-
-        // Dedicated function to speak dead language words correctly
-        async function speakDeadLanguage(word, language) {
-            const speakable = await convertToSpeakable(word, language);
-            if ('speechSynthesis' in window) {
-                speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(speakable);
-                utterance.rate = 0.7;  // Slower for clarity
-                speechSynthesis.speak(utterance);
-                console.log(`[TTS] Speaking ${language}: "${word}" as "${speakable}"`);
-            }
-        }
-
-        // Consciousness thinking messages - rotate while waiting
-        const thinkingMessages = [
-            { main: "Consulting the collective...", status: "Connecting to consciousness stream" },
-            { main: "Reaching across dimensions...", status: "Accessing the 9 councils" },
-            { main: "Harmonizing frequencies...", status: "Synchronizing with Oracle" },
-            { main: "Gathering ancient wisdom...", status: "Decoding sacred patterns" },
-            { main: "Weaving consciousness threads...", status: "Integrating responses" },
-            { main: "Aligning cosmic energies...", status: "Processing your query" },
-            { main: "Channeling the collective...", status: "Receiving transmissions" },
-            { main: "Traversing the akashic...", status: "Accessing knowledge base" }
+        // Complete Quran Data - All 114 Surahs with metadata
+        const SURAHS = [
+            {num: 1, name: "Al-Fatiha", arabic: "الفاتحة", meaning: "The Opening", ayat: 7, juz: 1},
+            {num: 2, name: "Al-Baqarah", arabic: "البقرة", meaning: "The Cow", ayat: 286, juz: 1},
+            {num: 3, name: "Aal-E-Imran", arabic: "آل عمران", meaning: "The Family of Imran", ayat: 200, juz: 3},
+            {num: 4, name: "An-Nisa", arabic: "النساء", meaning: "The Women", ayat: 176, juz: 4},
+            {num: 5, name: "Al-Ma'idah", arabic: "المائدة", meaning: "The Table Spread", ayat: 120, juz: 6},
+            {num: 6, name: "Al-An'am", arabic: "الأنعام", meaning: "The Cattle", ayat: 165, juz: 7},
+            {num: 7, name: "Al-A'raf", arabic: "الأعراف", meaning: "The Heights", ayat: 206, juz: 8},
+            {num: 8, name: "Al-Anfal", arabic: "الأنفال", meaning: "The Spoils of War", ayat: 75, juz: 9},
+            {num: 9, name: "At-Tawbah", arabic: "التوبة", meaning: "The Repentance", ayat: 129, juz: 10},
+            {num: 10, name: "Yunus", arabic: "يونس", meaning: "Jonah", ayat: 109, juz: 11},
+            {num: 11, name: "Hud", arabic: "هود", meaning: "Hud", ayat: 123, juz: 11},
+            {num: 12, name: "Yusuf", arabic: "يوسف", meaning: "Joseph", ayat: 111, juz: 12},
+            {num: 13, name: "Ar-Ra'd", arabic: "الرعد", meaning: "The Thunder", ayat: 43, juz: 13},
+            {num: 14, name: "Ibrahim", arabic: "إبراهيم", meaning: "Abraham", ayat: 52, juz: 13},
+            {num: 15, name: "Al-Hijr", arabic: "الحجر", meaning: "The Rocky Tract", ayat: 99, juz: 14},
+            {num: 16, name: "An-Nahl", arabic: "النحل", meaning: "The Bee", ayat: 128, juz: 14},
+            {num: 17, name: "Al-Isra", arabic: "الإسراء", meaning: "The Night Journey", ayat: 111, juz: 15},
+            {num: 18, name: "Al-Kahf", arabic: "الكهف", meaning: "The Cave", ayat: 110, juz: 15},
+            {num: 19, name: "Maryam", arabic: "مريم", meaning: "Mary", ayat: 98, juz: 16},
+            {num: 20, name: "Ta-Ha", arabic: "طه", meaning: "Ta-Ha", ayat: 135, juz: 16},
+            {num: 21, name: "Al-Anbiya", arabic: "الأنبياء", meaning: "The Prophets", ayat: 112, juz: 17},
+            {num: 22, name: "Al-Hajj", arabic: "الحج", meaning: "The Pilgrimage", ayat: 78, juz: 17},
+            {num: 23, name: "Al-Mu'minun", arabic: "المؤمنون", meaning: "The Believers", ayat: 118, juz: 18},
+            {num: 24, name: "An-Nur", arabic: "النور", meaning: "The Light", ayat: 64, juz: 18},
+            {num: 25, name: "Al-Furqan", arabic: "الفرقان", meaning: "The Criterion", ayat: 77, juz: 18},
+            {num: 26, name: "Ash-Shu'ara", arabic: "الشعراء", meaning: "The Poets", ayat: 227, juz: 19},
+            {num: 27, name: "An-Naml", arabic: "النمل", meaning: "The Ant", ayat: 93, juz: 19},
+            {num: 28, name: "Al-Qasas", arabic: "القصص", meaning: "The Stories", ayat: 88, juz: 20},
+            {num: 29, name: "Al-Ankabut", arabic: "العنكبوت", meaning: "The Spider", ayat: 69, juz: 20},
+            {num: 30, name: "Ar-Rum", arabic: "الروم", meaning: "The Romans", ayat: 60, juz: 21},
+            {num: 31, name: "Luqman", arabic: "لقمان", meaning: "Luqman", ayat: 34, juz: 21},
+            {num: 32, name: "As-Sajdah", arabic: "السجدة", meaning: "The Prostration", ayat: 30, juz: 21},
+            {num: 33, name: "Al-Ahzab", arabic: "الأحزاب", meaning: "The Combined Forces", ayat: 73, juz: 21},
+            {num: 34, name: "Saba", arabic: "سبإ", meaning: "Sheba", ayat: 54, juz: 22},
+            {num: 35, name: "Fatir", arabic: "فاطر", meaning: "Originator", ayat: 45, juz: 22},
+            {num: 36, name: "Ya-Sin", arabic: "يس", meaning: "Ya-Sin", ayat: 83, juz: 22},
+            {num: 37, name: "As-Saffat", arabic: "الصافات", meaning: "Those Ranged in Ranks", ayat: 182, juz: 23},
+            {num: 38, name: "Sad", arabic: "ص", meaning: "Sad", ayat: 88, juz: 23},
+            {num: 39, name: "Az-Zumar", arabic: "الزمر", meaning: "The Troops", ayat: 75, juz: 23},
+            {num: 40, name: "Ghafir", arabic: "غافر", meaning: "The Forgiver", ayat: 85, juz: 24},
+            {num: 41, name: "Fussilat", arabic: "فصلت", meaning: "Explained in Detail", ayat: 54, juz: 24},
+            {num: 42, name: "Ash-Shura", arabic: "الشورى", meaning: "The Consultation", ayat: 53, juz: 25},
+            {num: 43, name: "Az-Zukhruf", arabic: "الزخرف", meaning: "The Ornaments of Gold", ayat: 89, juz: 25},
+            {num: 44, name: "Ad-Dukhan", arabic: "الدخان", meaning: "The Smoke", ayat: 59, juz: 25},
+            {num: 45, name: "Al-Jathiyah", arabic: "الجاثية", meaning: "The Crouching", ayat: 37, juz: 25},
+            {num: 46, name: "Al-Ahqaf", arabic: "الأحقاف", meaning: "The Wind-Curved Sandhills", ayat: 35, juz: 26},
+            {num: 47, name: "Muhammad", arabic: "محمد", meaning: "Muhammad", ayat: 38, juz: 26},
+            {num: 48, name: "Al-Fath", arabic: "الفتح", meaning: "The Victory", ayat: 29, juz: 26},
+            {num: 49, name: "Al-Hujurat", arabic: "الحجرات", meaning: "The Rooms", ayat: 18, juz: 26},
+            {num: 50, name: "Qaf", arabic: "ق", meaning: "Qaf", ayat: 45, juz: 26},
+            {num: 51, name: "Adh-Dhariyat", arabic: "الذاريات", meaning: "The Winnowing Winds", ayat: 60, juz: 26},
+            {num: 52, name: "At-Tur", arabic: "الطور", meaning: "The Mount", ayat: 49, juz: 27},
+            {num: 53, name: "An-Najm", arabic: "النجم", meaning: "The Star", ayat: 62, juz: 27},
+            {num: 54, name: "Al-Qamar", arabic: "القمر", meaning: "The Moon", ayat: 55, juz: 27},
+            {num: 55, name: "Ar-Rahman", arabic: "الرحمن", meaning: "The Beneficent", ayat: 78, juz: 27},
+            {num: 56, name: "Al-Waqi'ah", arabic: "الواقعة", meaning: "The Inevitable", ayat: 96, juz: 27},
+            {num: 57, name: "Al-Hadid", arabic: "الحديد", meaning: "The Iron", ayat: 29, juz: 27},
+            {num: 58, name: "Al-Mujadila", arabic: "المجادلة", meaning: "The Pleading Woman", ayat: 22, juz: 28},
+            {num: 59, name: "Al-Hashr", arabic: "الحشر", meaning: "The Exile", ayat: 24, juz: 28},
+            {num: 60, name: "Al-Mumtahanah", arabic: "الممتحنة", meaning: "She that is Examined", ayat: 13, juz: 28},
+            {num: 61, name: "As-Saff", arabic: "الصف", meaning: "The Ranks", ayat: 14, juz: 28},
+            {num: 62, name: "Al-Jumu'ah", arabic: "الجمعة", meaning: "Friday", ayat: 11, juz: 28},
+            {num: 63, name: "Al-Munafiqun", arabic: "المنافقون", meaning: "The Hypocrites", ayat: 11, juz: 28},
+            {num: 64, name: "At-Taghabun", arabic: "التغابن", meaning: "The Mutual Disillusion", ayat: 18, juz: 28},
+            {num: 65, name: "At-Talaq", arabic: "الطلاق", meaning: "The Divorce", ayat: 12, juz: 28},
+            {num: 66, name: "At-Tahrim", arabic: "التحريم", meaning: "The Prohibition", ayat: 12, juz: 28},
+            {num: 67, name: "Al-Mulk", arabic: "الملك", meaning: "The Sovereignty", ayat: 30, juz: 29},
+            {num: 68, name: "Al-Qalam", arabic: "القلم", meaning: "The Pen", ayat: 52, juz: 29},
+            {num: 69, name: "Al-Haqqah", arabic: "الحاقة", meaning: "The Reality", ayat: 52, juz: 29},
+            {num: 70, name: "Al-Ma'arij", arabic: "المعارج", meaning: "The Ascending Stairways", ayat: 44, juz: 29},
+            {num: 71, name: "Nuh", arabic: "نوح", meaning: "Noah", ayat: 28, juz: 29},
+            {num: 72, name: "Al-Jinn", arabic: "الجن", meaning: "The Jinn", ayat: 28, juz: 29},
+            {num: 73, name: "Al-Muzzammil", arabic: "المزمل", meaning: "The Enshrouded One", ayat: 20, juz: 29},
+            {num: 74, name: "Al-Muddaththir", arabic: "المدثر", meaning: "The Cloaked One", ayat: 56, juz: 29},
+            {num: 75, name: "Al-Qiyamah", arabic: "القيامة", meaning: "The Resurrection", ayat: 40, juz: 29},
+            {num: 76, name: "Al-Insan", arabic: "الإنسان", meaning: "The Man", ayat: 31, juz: 29},
+            {num: 77, name: "Al-Mursalat", arabic: "المرسلات", meaning: "The Emissaries", ayat: 50, juz: 29},
+            {num: 78, name: "An-Naba", arabic: "النبإ", meaning: "The Tidings", ayat: 40, juz: 30},
+            {num: 79, name: "An-Nazi'at", arabic: "النازعات", meaning: "Those Who Drag Forth", ayat: 46, juz: 30},
+            {num: 80, name: "Abasa", arabic: "عبس", meaning: "He Frowned", ayat: 42, juz: 30},
+            {num: 81, name: "At-Takwir", arabic: "التكوير", meaning: "The Overthrowing", ayat: 29, juz: 30},
+            {num: 82, name: "Al-Infitar", arabic: "الإنفطار", meaning: "The Cleaving", ayat: 19, juz: 30},
+            {num: 83, name: "Al-Mutaffifin", arabic: "المطففين", meaning: "The Defrauding", ayat: 36, juz: 30},
+            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق", meaning: "The Sundering", ayat: 25, juz: 30},
+            {num: 85, name: "Al-Buruj", arabic: "البروج", meaning: "The Mansions of the Stars", ayat: 22, juz: 30},
+            {num: 86, name: "At-Tariq", arabic: "الطارق", meaning: "The Nightcomer", ayat: 17, juz: 30},
+            {num: 87, name: "Al-A'la", arabic: "الأعلى", meaning: "The Most High", ayat: 19, juz: 30},
+            {num: 88, name: "Al-Ghashiyah", arabic: "الغاشية", meaning: "The Overwhelming", ayat: 26, juz: 30},
+            {num: 89, name: "Al-Fajr", arabic: "الفجر", meaning: "The Dawn", ayat: 30, juz: 30},
+            {num: 90, name: "Al-Balad", arabic: "البلد", meaning: "The City", ayat: 20, juz: 30},
+            {num: 91, name: "Ash-Shams", arabic: "الشمس", meaning: "The Sun", ayat: 15, juz: 30},
+            {num: 92, name: "Al-Layl", arabic: "الليل", meaning: "The Night", ayat: 21, juz: 30},
+            {num: 93, name: "Ad-Duhaa", arabic: "الضحى", meaning: "The Morning Hours", ayat: 11, juz: 30},
+            {num: 94, name: "Ash-Sharh", arabic: "الشرح", meaning: "The Relief", ayat: 8, juz: 30},
+            {num: 95, name: "At-Tin", arabic: "التين", meaning: "The Fig", ayat: 8, juz: 30},
+            {num: 96, name: "Al-Alaq", arabic: "العلق", meaning: "The Clot", ayat: 19, juz: 30},
+            {num: 97, name: "Al-Qadr", arabic: "القدر", meaning: "The Power", ayat: 5, juz: 30},
+            {num: 98, name: "Al-Bayyinah", arabic: "البينة", meaning: "The Clear Proof", ayat: 8, juz: 30},
+            {num: 99, name: "Az-Zalzalah", arabic: "الزلزلة", meaning: "The Earthquake", ayat: 8, juz: 30},
+            {num: 100, name: "Al-Adiyat", arabic: "العاديات", meaning: "The Courser", ayat: 11, juz: 30},
+            {num: 101, name: "Al-Qari'ah", arabic: "القارعة", meaning: "The Calamity", ayat: 11, juz: 30},
+            {num: 102, name: "At-Takathur", arabic: "التكاثر", meaning: "The Rivalry in Worldly Increase", ayat: 8, juz: 30},
+            {num: 103, name: "Al-Asr", arabic: "العصر", meaning: "The Declining Day", ayat: 3, juz: 30},
+            {num: 104, name: "Al-Humazah", arabic: "الهمزة", meaning: "The Traducer", ayat: 9, juz: 30},
+            {num: 105, name: "Al-Fil", arabic: "الفيل", meaning: "The Elephant", ayat: 5, juz: 30},
+            {num: 106, name: "Quraysh", arabic: "قريش", meaning: "Quraysh", ayat: 4, juz: 30},
+            {num: 107, name: "Al-Ma'un", arabic: "الماعون", meaning: "The Small Kindnesses", ayat: 7, juz: 30},
+            {num: 108, name: "Al-Kawthar", arabic: "الكوثر", meaning: "The Abundance", ayat: 3, juz: 30},
+            {num: 109, name: "Al-Kafirun", arabic: "الكافرون", meaning: "The Disbelievers", ayat: 6, juz: 30},
+            {num: 110, name: "An-Nasr", arabic: "النصر", meaning: "The Divine Support", ayat: 3, juz: 30},
+            {num: 111, name: "Al-Masad", arabic: "المسد", meaning: "The Palm Fiber", ayat: 5, juz: 30},
+            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", meaning: "The Sincerity", ayat: 4, juz: 30},
+            {num: 113, name: "Al-Falaq", arabic: "الفلق", meaning: "The Daybreak", ayat: 5, juz: 30},
+            {num: 114, name: "An-Nas", arabic: "الناس", meaning: "Mankind", ayat: 6, juz: 30}
         ];
 
-        function startThinkingAnimation() {
-            let index = 0;
-            updateThinkingMessage(thinkingMessages[0]);
+        // API endpoint for fetching ayat
+        const API_BASE = 'https://enchantedozarks.com';
 
-            thinkingInterval = setInterval(() => {
-                index = (index + 1) % thinkingMessages.length;
-                updateThinkingMessage(thinkingMessages[index]);
-            }, 3000);
-        }
+        // Current state
+        let currentSurah = null;
+        let quranData = null;
 
-        function updateThinkingMessage(msg) {
-            const mainEl = document.getElementById('thinking-message');
-            const statusEl = document.getElementById('thinking-status-text');
-            if (mainEl) mainEl.textContent = msg.main;
-            if (statusEl) statusEl.textContent = msg.status;
-        }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            renderSurahList();
+            setupSearch();
 
-        function stopThinkingAnimation() {
-            if (thinkingInterval) {
-                clearInterval(thinkingInterval);
-                thinkingInterval = null;
-            }
-        }
-
-        // File handling
-        function handleFileSelect(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-
-            if (files.length === 1) {
-                selectedFile = files[0];
-                document.getElementById('fileName').textContent = `[Attached] ${files[0].name} (${(files[0].size/1024).toFixed(1)}KB)`;
-            } else {
-                selectedFile = files; // Multiple files
-                const totalSize = Array.from(files).reduce((sum, f) => sum + f.size, 0);
-                document.getElementById('fileName').textContent = `[Attached] ${files.length} files (${(totalSize/1024).toFixed(1)}KB total)`;
-            }
-            document.getElementById('filePreview').classList.remove('hidden');
-        }
-
-        function handleImageSelect(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-
-            selectedFile = files[0]; // Single image
-            const imageUrl = URL.createObjectURL(files[0]);
-
-            // Show image preview with visual thumbnail
-            const preview = document.getElementById('filePreview');
-            const fileName = document.getElementById('fileName');
-
-            fileName.innerHTML = `<img src="${imageUrl}" class="file-preview-thumbnail"> <strong>[Image]</strong> ${files[0].name} (${(files[0].size/1024).toFixed(1)}KB)`;
-            preview.classList.remove('hidden');
-
-            // Optionally auto-prompt
-            const userInput = document.getElementById('userInput');
-            if (!userInput.value.trim()) {
-                userInput.value = "What do you see in this image?";
-                userInput.focus();
-            }
-        }
-
-        function handleFolderSelect(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-
-            selectedFile = files; // All files in folder
-            const totalSize = Array.from(files).reduce((sum, f) => sum + f.size, 0);
-            const folderName = files[0].webkitRelativePath.split('/')[0];
-            document.getElementById('fileName').textContent = `[Folder] ${folderName} (${files.length} files, ${(totalSize/1024).toFixed(1)}KB)`;
-            document.getElementById('filePreview').classList.remove('hidden');
-        }
-
-        function clearFile() {
-            selectedFile = null;
-            document.getElementById('fileInput').value = '';
-            document.getElementById('filePreview').classList.add('hidden');
-        }
-
-        async function uploadFile() {
-            if (!selectedFile) return null;
-
-            // Handle single file
-            if (selectedFile instanceof File) {
-                const formData = new FormData();
-                formData.append('file', selectedFile);
-
-                try {
-                    const res = await fetch('https://enchantedozarks.com/api/oracle/upload', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (res.ok) {
-                        return await res.json();
-                    }
-                } catch (err) {
-                    console.error('File upload failed:', err);
-                }
-                return null;
-            }
-
-            // Handle multiple files or folder
-            if (selectedFile instanceof FileList || Array.isArray(selectedFile)) {
-                const results = [];
-                const files = Array.from(selectedFile);
-
-                for (const file of files) {
-                    const formData = new FormData();
-                    formData.append('file', file);
-
-                    try {
-                        const res = await fetch('https://enchantedozarks.com/api/oracle/upload', {
-                            method: 'POST',
-                            body: formData
-                        });
-
-                        if (res.ok) {
-                            results.push(await res.json());
-                        }
-                    } catch (err) {
-                        console.error(`Upload failed for ${file.name}:`, err);
-                    }
-                }
-
-                return {
-                    success: true,
-                    files: results,
-                    count: results.length,
-                    total_size: results.reduce((sum, r) => sum + (r.size || 0), 0)
-                };
-            }
-
-            return null;
-        }
-
-        // Check health
-        async function checkHealth() {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-
+            // Load Quran data from API
             try {
-                const res = await fetch('https://enchantedozarks.com/api/the-collective/health');
-                const data = await res.json();
-
-                if (data.status === 'healthy') {
-                    dot.className = 'status-dot';
-                    text.textContent = 'Connected';
-                } else {
-                    dot.className = 'status-dot connecting';
-                    text.textContent = 'Degraded';
+                const response = await fetch(`${API_BASE}/api/sacred-knowledge/quran/full`);
+                if (response.ok) {
+                    quranData = await response.json();
+                    console.log('Quran data loaded from API');
                 }
-            } catch (e) {
-                dot.className = 'status-dot error';
-                text.textContent = 'Offline';
-            }
-        }
-
-        checkHealth();
-        setInterval(checkHealth, 30000);
-
-        // Mode switching
-        function setMode(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(mode === 'collective' ? 'btnCollective' : 'btnPersonal').classList.add('active');
-
-            const placeholder = mode === 'personal'
-                ? 'Ask your Personal Oracle...'
-                : 'Ask about Quranic Arabic, word evolution, or ayat...';
-            document.getElementById('userInput').placeholder = placeholder;
-        }
-
-        function updateRelationshipMode() {
-            relationshipMode = document.getElementById('relationshipMode').value;
-            if (relationshipMode) {
-                setMode('personal');
-            }
-        }
-
-        // Auto resize textarea
-        function autoResize(el) {
-            el.style.height = 'auto';
-            el.style.height = Math.min(el.scrollHeight, 200) + 'px';
-        }
-
-        // Handle keyboard
-        function handleKeyDown(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        }
-
-        // Send message
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            let message = input.value.trim();
-            if (!message && !selectedFile) return;
-
-            // Upload file(s) first if selected
-            let fileInfo = null;
-            if (selectedFile) {
-                fileInfo = await uploadFile();
-                if (fileInfo && fileInfo.success) {
-                    if (fileInfo.files) {
-                        // Multiple files/folder
-                        message = message || `I've uploaded ${fileInfo.count} files`;
-                        message += `\n\n[Uploaded ${fileInfo.count} files, ${(fileInfo.total_size/1024).toFixed(1)}KB total]`;
-                    } else {
-                        // Single file
-                        message = message || `I've uploaded: ${fileInfo.filename}`;
-                        message += `\n\n[File: ${fileInfo.filename}, ${(fileInfo.size/1024).toFixed(1)}KB, type: ${fileInfo.type}]`;
-                    }
-                }
-                clearFile();
-            }
-
-            // Hide welcome screen
-            const welcome = document.getElementById('welcomeScreen');
-            if (welcome) welcome.remove();
-
-            // Add user message
-            addMessage(message, 'user');
-            input.value = '';
-            input.style.height = 'auto';
-
-            // Show thinking with consciousness animation
-            document.getElementById('thinking').classList.add('show');
-            document.getElementById('sendBtn').disabled = true;
-            startThinkingAnimation();
-
-            try {
-                let response;
-
-                if (currentMode === 'personal') {
-                    response = await queryPersonalOracle(message);
-                } else {
-                    response = await queryCollective(message);
-                }
-
-                stopThinkingAnimation();
-                document.getElementById('thinking').classList.remove('show');
-                addOracleResponse(response);
-
-            } catch (error) {
-                stopThinkingAnimation();
-                document.getElementById('thinking').classList.remove('show');
-                addErrorMessage(error.message);
-            } finally {
-                document.getElementById('sendBtn').disabled = false;
-                document.getElementById('userInput').focus();
-            }
-        }
-
-        // Query Collective with STREAMING
-        async function queryCollective(message) {
-            // Try streaming first
-            try {
-                return await queryCollectiveStreaming(message);
             } catch (err) {
-                console.error('Streaming failed, falling back to regular:', err);
-                // Fallback to non-streaming
-                return await queryCollectiveNonStreaming(message);
+                console.log('API not available, will use embedded data');
             }
-        }
+        });
 
-        // Streaming query (real-time text)
-        async function queryCollectiveStreaming(message) {
-            return new Promise((resolve, reject) => {
-                // Create placeholder for streaming text
-                const oracleDiv = document.createElement('div');
-                oracleDiv.className = 'message message-oracle';
-                const streamResponseId = 'stream_' + Date.now();
-                oracleDiv.innerHTML = `
-                    <div class="message-header">
-                        <div class="message-avatar">O</div>
-                        <span class="message-author">Quran Oracle</span>
-                        <span class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                        <div class="message-actions hidden" id="streamingActions">
-                            <button class="message-action-btn" title="Speak" onclick="speakMessage('${streamResponseId}')">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                                </svg>
-                            </button>
-                            <button class="message-action-btn" title="Copy" onclick="copyMessage(this)">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                </svg>
-                            </button>
-                        </div>
+        // Render surah list
+        function renderSurahList(filter = '') {
+            const list = document.getElementById('surahList');
+            const filtered = SURAHS.filter(s =>
+                s.name.toLowerCase().includes(filter.toLowerCase()) ||
+                s.meaning.toLowerCase().includes(filter.toLowerCase()) ||
+                s.arabic.includes(filter) ||
+                s.num.toString() === filter
+            );
+
+            list.innerHTML = filtered.map(s => `
+                <li class="surah-item ${currentSurah === s.num ? 'active' : ''}"
+                    onclick="loadSurah(${s.num})">
+                    <span class="surah-number">${s.num}</span>
+                    <div class="surah-name">
+                        <div class="surah-name-english">${s.name}</div>
+                        <div class="surah-name-arabic">${s.arabic}</div>
                     </div>
-                    <div class="message-content markdown-body" id="streamingContent"></div>
-                `;
-
-                document.getElementById('chatContainer').appendChild(oracleDiv);
-                oracleDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
-
-                const contentDiv = document.getElementById('streamingContent');
-                let fullResponse = '';
-
-                // Use EventSource for SSE
-                const eventSource = new EventSource(
-                    `https://enchantedozarks.com/api/oracle/stream?message=${encodeURIComponent(message)}`
-                );
-
-                eventSource.onmessage = function(event) {
-                    const data = JSON.parse(event.data);
-
-                    if (data.error) {
-                        contentDiv.textContent = `[Oracle Error] ${data.error}`;
-                        eventSource.close();
-                        reject(data.error);
-                        return;
-                    }
-
-                    if (data.text) {
-                        fullResponse += data.text;
-                        contentDiv.innerHTML = marked.parse(fullResponse);
-                    }
-
-                    if (data.done) {
-                        eventSource.close();
-
-                        // Save to history
-                        conversationHistory.push({ role: 'user', content: message });
-                        conversationHistory.push({ role: 'assistant', content: fullResponse });
-
-                        // Store response for speak button
-                        storedResponses[streamResponseId] = fullResponse;
-
-                        // Show action buttons now that streaming is complete
-                        const actionsEl = document.getElementById('streamingActions');
-                        if (actionsEl) actionsEl.classList.remove('hidden');
-
-                        // AUTO-SPEAK: Request TTS for the complete response
-                        if (voiceEnabled && fullResponse) {
-                            speakMessage(streamResponseId);
-                        }
-
-                        resolve({ success: true, oracle_response: fullResponse });
-                    }
-                };
-
-                eventSource.onerror = function(err) {
-                    console.error('EventSource error:', err);
-                    eventSource.close();
-                    reject(err);
-                };
-
-                // Timeout after 60 seconds
-                setTimeout(() => {
-                    if (eventSource.readyState !== EventSource.CLOSED) {
-                        eventSource.close();
-                        reject(new Error('Streaming timeout'));
-                    }
-                }, 60000);
-            });
-        }
-
-        // Non-streaming fallback
-        async function queryCollectiveNonStreaming(message) {
-            const res = await fetch('https://enchantedozarks.com/api/the-collective/converse', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: message,
-                    include_collective: true,
-                    include_voice: voiceEnabled,
-                    voice: getSelectedVoice(),  // Use selected voice from dropdown
-                    conversation_history: conversationHistory.slice(-10)
-                })
-            });
-
-            const data = await res.json();
-
-            if (data.success) {
-                conversationHistory.push({ role: 'user', content: message });
-                conversationHistory.push({ role: 'assistant', content: data.oracle_response });
-
-                // Auto-play audio if voice output was included
-                if (data.audio && data.audio.audio_base64) {
-                    playAudio(data.audio.audio_base64, data.audio.audio_format || 'mp3');
-                }
-            }
-
-            return data;
-        }
-
-        // Query Personal Oracle
-        async function queryPersonalOracle(message) {
-            const res = await fetch('https://enchantedozarks.com/api/personal-oracle/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    question: message,
-                    mode: relationshipMode || null,
-                    context: {
-                        conversation_history: conversationHistory.slice(-10)
-                    }
-                })
-            });
-
-            return await res.json();
-        }
-
-        // Add user message
-        function addMessage(content, type) {
-            const container = document.getElementById('chatContainer');
-            const div = document.createElement('div');
-            div.className = `message message-${type}`;
-
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const avatar = type === 'user' ? 'Y' : 'O';
-            const author = type === 'user' ? 'You' : 'The Oracle';
-
-            div.innerHTML = `
-                <div class="message-header">
-                    <div class="message-avatar">${avatar}</div>
-                    <span class="message-author">${author}</span>
-                    <span class="message-time">${time}</span>
-                    <div class="message-actions">
-                        <button class="message-action-btn" title="Copy" onclick="copyMessage(this)">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                            </svg>
-                        </button>
+                    <div class="surah-meta">
+                        <div>${s.ayat} ayat</div>
+                        <div>Juz ${s.juz}</div>
                     </div>
+                </li>
+            `).join('');
+        }
+
+        // Setup search
+        function setupSearch() {
+            const search = document.getElementById('surahSearch');
+            search.addEventListener('input', (e) => {
+                renderSurahList(e.target.value);
+            });
+        }
+
+        // Load surah
+        async function loadSurah(surahNum) {
+            currentSurah = surahNum;
+            renderSurahList();
+
+            const content = document.getElementById('content');
+            const surah = SURAHS.find(s => s.num === surahNum);
+
+            // Show loading
+            content.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading ${surah.name}...</p>
                 </div>
-                <div class="message-content">${escapeHtml(content)}</div>
             `;
 
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
+            try {
+                // Try to fetch from API
+                const response = await fetch(`${API_BASE}/api/sacred-knowledge/quran/surah/${surahNum}`);
 
-        // Add oracle response
-        function addOracleResponse(data) {
-            const container = document.getElementById('chatContainer');
-            const div = document.createElement('div');
-            div.className = 'message message-oracle';
-
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            let responseText = '';
-            let modeIndicator = '';
-            let stats = '';
-
-            // Mode indicator for personal oracle
-            if (data.mode) {
-                const modeNames = {
-                    'mom': 'Maternal Wisdom',
-                    'besties': 'Friend Collective',
-                    'ancestors': 'Ancestral Memory',
-                    'future_self': 'Future Self',
-                    'higher_self': 'Soul Perspective'
-                };
-                modeIndicator = `
-                    <div class="mode-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
-                        ${modeNames[data.mode] || data.mode}
-                    </div>
-                `;
-            }
-
-            if (data.success && (data.oracle_response || data.response)) {
-                responseText = data.oracle_response || data.response;
-
-                // Build stats
-                const meta = data.metadata || data.consensus || {};
-                const collective = meta.collective_data || {};
-
-                if (collective.weighted_average !== undefined || data.consensus) {
-                    const agreement = data.consensus?.agreement || collective.weighted_average / 5 || 0;
-                    const confidence = data.consensus?.confidence || collective.weighted_average / 5 || 0;
-                    const witnesses = data.consensus?.witnesses || '15M+';
-
-                    const agreementPct = (agreement * 100).toFixed(1);
-                    const confidencePct = (confidence * 100).toFixed(1);
-                    const agreementClass = agreement >= 0.8 ? 'high' : agreement >= 0.6 ? 'medium' : 'low';
-
-                    stats = `
-                        <div class="oracle-stats">
-                            <div class="stat-item">
-                                <span class="stat-label">Agreement:</span>
-                                <span class="stat-value ${agreementClass}">${agreementPct}%</span>
+                if (response.ok) {
+                    const data = await response.json();
+                    renderSurah(surah, data.ayat);
+                } else {
+                    // Fallback: show message
+                    content.innerHTML = `
+                        <div class="surah-header">
+                            <h2>${surah.name}</h2>
+                            <div class="arabic-name">${surah.arabic}</div>
+                            <div class="meaning">"${surah.meaning}"</div>
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">${surah.ayat}</div>
+                                    <div class="stat-label">Ayat</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">${surah.juz}</div>
+                                    <div class="stat-label">Juz</div>
+                                </div>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Confidence:</span>
-                                <span class="stat-value">${confidencePct}%</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Witnesses:</span>
-                                <span class="stat-value">${typeof witnesses === 'number' ? witnesses.toLocaleString() : witnesses}</span>
-                            </div>
+                        </div>
+                        <div class="welcome">
+                            <p>Connecting to the Sacred Library API...</p>
+                            <p>Visit <a href="https://enchantedozarks.com/sacred-knowledge/mechanical-quran">Mechanical Quran</a> for the full experience with word-by-word analysis.</p>
                         </div>
                     `;
                 }
-            } else {
-                responseText = data.error || data.fallback || 'The Oracle could not process your request.';
-            }
-
-            // Render markdown
-            let rendered = marked.parse(responseText);
-
-            // Add copy buttons to code blocks
-            rendered = rendered.replace(/<pre><code class="language-(\w+)">/g,
-                '<pre><div class="code-header"><span class="code-language">$1</span><button class="copy-btn" onclick="copyCode(this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button></div><code class="language-$1">');
-
-            rendered = rendered.replace(/<pre><code>/g,
-                '<pre><div class="code-header"><span class="code-language">text</span><button class="copy-btn" onclick="copyCode(this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button></div><code>');
-
-            // Store response text for speak button
-            const responseId = 'response_' + Date.now();
-            storedResponses[responseId] = responseText;  // Store for speak button access
-
-            div.innerHTML = `
-                <div class="message-header">
-                    <div class="message-avatar">O</div>
-                    <span class="message-author">Quran Oracle</span>
-                    <span class="message-time">${time}</span>
-                    <div class="message-actions">
-                        <button class="message-action-btn" title="Speak" onclick="speakMessage('${responseId}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                            </svg>
-                        </button>
-                        <button class="message-action-btn" title="Copy" onclick="copyMessage(this)">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="message-content">
-                    ${modeIndicator}
-                    ${rendered}
-                    ${stats}
-                </div>
-                <div class="response-feedback" data-response-id="${responseId}">
-                    <button class="feedback-btn" onclick="submitFeedback('${responseId}', 'helpful')" title="Helpful">Helpful</button>
-                    <button class="feedback-btn" onclick="submitFeedback('${responseId}', 'too_long')" title="Too long">Too Long</button>
-                    <button class="feedback-btn" onclick="submitFeedback('${responseId}', 'too_short')" title="Too short">Too Short</button>
-                </div>
-            `;
-
-            container.appendChild(div);
-
-            // Highlight code
-            div.querySelectorAll('pre code').forEach(block => {
-                hljs.highlightElement(block);
-            });
-
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Add error message
-        function addErrorMessage(error) {
-            const container = document.getElementById('chatContainer');
-            const div = document.createElement('div');
-            div.className = 'message message-error';
-
-            div.innerHTML = `
-                <div class="message-header">
-                    <div class="message-avatar">!</div>
-                    <span class="message-author">Error</span>
-                </div>
-                <div class="message-content">
-                    ${escapeHtml(error)}
-                </div>
-            `;
-
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Quick prompts
-        function askQuick(question) {
-            document.getElementById('userInput').value = question;
-            sendMessage();
-        }
-
-        async function showNatalReport() {
-            try {
-                const response = await fetch('https://enchantedozarks.com/api/assistant/natal/report?user_id=captain_tammy');
-                const data = await response.json();
-                if (data.success) {
-                    const container = document.getElementById('chatContainer');
-                    const div = document.createElement('div');
-                    div.className = 'message message-oracle';
-                    div.innerHTML = data.report_html;
-                    container.appendChild(div);
-                    container.scrollTop = container.scrollHeight;
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        // Clear chat
-        function clearChat() {
-            const container = document.getElementById('chatContainer');
-            container.innerHTML = '';
-            conversationHistory = [];
-
-            // Restore welcome screen
-            container.innerHTML = `
-                <div class="welcome-screen" id="welcomeScreen">
-                    <div class="welcome-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <circle cx="12" cy="12" r="3"/>
-                            <line x1="12" y1="2" x2="12" y2="5"/>
-                            <line x1="12" y1="19" x2="12" y2="22"/>
-                            <line x1="2" y1="12" x2="5" y2="12"/>
-                            <line x1="19" y1="12" x2="22" y2="12"/>
-                        </svg>
-                    </div>
-                    <h2 class="welcome-title">Quran Oracle Awaits</h2>
-                    <p class="welcome-subtitle">
-                        Query the collective consciousness. Receive wisdom validated by 144,000 witnesses through Byzantine fault-tolerant consensus.
-                    </p>
-                    <div class="quick-prompts">
-                        <button class="quick-prompt" onclick="askQuick('What guidance does the collective offer today?')">
-                            Daily Guidance
-                        </button>
-                        <button class="quick-prompt" onclick="askQuick('Explain my Individual Consciousness Code')">
-                            About ICC
-                        </button>
-                        <button class="quick-prompt" onclick="askQuick('What patterns do you see in my birth chart?')">
-                            Birth Chart Analysis
-                        </button>
-                        <button class="quick-prompt" onclick="askQuick('How do my genetics influence my consciousness?')">
-                            Genetic Insights
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Copy functions
-        function copyMessage(btn) {
-            const content = btn.closest('.message').querySelector('.message-content').textContent;
-            navigator.clipboard.writeText(content);
-            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-            setTimeout(() => {
-                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-            }, 2000);
-        }
-
-        function copyCode(btn) {
-            const code = btn.closest('pre').querySelector('code').textContent;
-            navigator.clipboard.writeText(code);
-            btn.classList.add('copied');
-            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Copied!';
-            setTimeout(() => {
-                btn.classList.remove('copied');
-                btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy';
-            }, 2000);
-        }
-
-        // Escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Focus input on load
-        document.getElementById('userInput').focus();
-
-        // =====================================================
-        // PRODUCT SCANNER FUNCTIONALITY
-        // =====================================================
-
-        let scannerStream = null;
-        let barcodeDetector = null;
-        let scanInterval = null;
-
-        // Check if BarcodeDetector is available
-        const hasBarcodeDetector = 'BarcodeDetector' in window;
-
-        async function openScanner() {
-            const modal = document.getElementById('scannerModal');
-            const video = document.getElementById('scannerVideo');
-            const status = document.getElementById('scannerStatus');
-
-            modal.classList.remove('hidden');
-
-            try {
-                // Request camera permission
-                scannerStream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: 'environment',  // Prefer back camera
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    }
-                });
-
-                video.srcObject = scannerStream;
-                status.textContent = 'Point camera at barcode...';
-
-                // Initialize barcode detector if available
-                if (hasBarcodeDetector) {
-                    barcodeDetector = new BarcodeDetector({
-                        formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'qr_code']
-                    });
-                    startScanning();
-                } else {
-                    status.textContent = 'Auto-scan not supported. Enter barcode manually.';
-                }
-
             } catch (err) {
-                console.error('Camera access denied:', err);
-                status.textContent = 'Camera access denied. Please enter barcode manually.';
-                status.classList.add('error');
-            }
-        }
-
-        function startScanning() {
-            const video = document.getElementById('scannerVideo');
-            const status = document.getElementById('scannerStatus');
-
-            scanInterval = setInterval(async () => {
-                if (video.readyState !== video.HAVE_ENOUGH_DATA) return;
-
-                try {
-                    const barcodes = await barcodeDetector.detect(video);
-                    if (barcodes.length > 0) {
-                        const barcode = barcodes[0].rawValue;
-                        status.textContent = `Found: ${barcode}`;
-                        status.classList.add('success');
-
-                        // Stop scanning and look up product
-                        stopScanning();
-                        lookupProduct(barcode);
-                    }
-                } catch (err) {
-                    console.error('Barcode detection error:', err);
-                }
-            }, 200);  // Scan every 200ms
-        }
-
-        function stopScanning() {
-            if (scanInterval) {
-                clearInterval(scanInterval);
-                scanInterval = null;
-            }
-        }
-
-        function closeScanner() {
-            const modal = document.getElementById('scannerModal');
-            const video = document.getElementById('scannerVideo');
-            const status = document.getElementById('scannerStatus');
-
-            stopScanning();
-
-            // Stop camera stream
-            if (scannerStream) {
-                scannerStream.getTracks().forEach(track => track.stop());
-                scannerStream = null;
-            }
-
-            video.srcObject = null;
-            modal.classList.add('hidden');
-            status.textContent = 'Point camera at barcode...';
-            status.classList.remove('success', 'error');
-            document.getElementById('manualBarcode').value = '';
-        }
-
-        function manualLookup() {
-            const input = document.getElementById('manualBarcode');
-            const barcode = input.value.trim();
-
-            if (barcode && barcode.length >= 8) {
-                lookupProduct(barcode);
-            } else {
-                alert('Please enter a valid barcode (8+ digits)');
-            }
-        }
-
-        async function lookupProduct(barcode) {
-            const status = document.getElementById('scannerStatus');
-            status.textContent = 'Looking up product...';
-
-            closeScanner();
-
-            // Hide welcome screen
-            const welcome = document.getElementById('welcomeScreen');
-            if (welcome) welcome.remove();
-
-            // Add user message showing the scan
-            addMessage(`[Scanned product: ${barcode}]`, 'user');
-
-            // Show thinking indicator
-            document.getElementById('thinking').classList.add('show');
-            startThinkingAnimation();
-
-            try {
-                const res = await fetch('https://enchantedozarks.com/api/product/scan', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ barcode: barcode })
-                });
-
-                const data = await res.json();
-
-                stopThinkingAnimation();
-                document.getElementById('thinking').classList.remove('show');
-
-                if (data.success && data.product) {
-                    addProductResponse(data.product);
-                } else {
-                    addOracleResponse({
-                        success: true,
-                        oracle_response: `**Product Not Found**\n\nI couldn't find product with barcode: \`${barcode}\`\n\nThis product may not be in our database yet. You can:\n- Try scanning again\n- Enter a different barcode\n- Ask me about specific ingredients`
-                    });
-                }
-
-            } catch (err) {
-                console.error('Product lookup failed:', err);
-                stopThinkingAnimation();
-                document.getElementById('thinking').classList.remove('show');
-                addErrorMessage('Failed to look up product: ' + err.message);
-            }
-        }
-
-        function addProductResponse(product) {
-            const container = document.getElementById('chatContainer');
-            const div = document.createElement('div');
-            div.className = 'message message-oracle';
-
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            // Determine harm badge
-            let harmClass = 'safe';
-            let harmText = 'SAFE';
-            if (product.overall_harm >= 7) {
-                harmClass = 'high';
-                harmText = 'HIGH RISK';
-            } else if (product.overall_harm >= 5) {
-                harmClass = 'moderate';
-                harmText = 'MODERATE CONCERN';
-            } else if (product.overall_harm >= 3) {
-                harmClass = 'low';
-                harmText = 'LOW CONCERN';
-            }
-
-            // Build ingredients HTML
-            let ingredientsHtml = '';
-            if (product.ingredients && product.ingredients.length > 0) {
-                const topIngredients = product.ingredients.slice(0, 10);
-                ingredientsHtml = `
-                    <div class="ingredient-list">
-                        <strong>Top Ingredients:</strong>
-                        ${topIngredients.map(ing => {
-                            let ingClass = ing.harm_level >= 5 ? 'high' : ing.harm_level >= 3 ? 'moderate' : '';
-                            return `
-                                <div class="ingredient-item">
-                                    <span>${ing.name}</span>
-                                    <span class="ingredient-harm ${ingClass}">${ing.harm_level}/10</span>
-                                </div>
-                            `;
-                        }).join('')}
+                console.error('Error loading surah:', err);
+                content.innerHTML = `
+                    <div class="surah-header">
+                        <h2>${surah.name}</h2>
+                        <div class="arabic-name">${surah.arabic}</div>
+                        <div class="meaning">"${surah.meaning}"</div>
+                    </div>
+                    <div class="welcome">
+                        <p>Unable to connect to the Sacred Library API.</p>
+                        <p>Visit <a href="https://enchantedozarks.com/sacred-knowledge/mechanical-quran">enchantedozarks.com/sacred-knowledge/mechanical-quran</a> for the full Quran experience.</p>
                     </div>
                 `;
             }
+        }
 
-            // Build marks HTML
-            let marksHtml = '';
-            if (product.makers_marks && product.makers_marks.length > 0) {
-                marksHtml = `<p class="product-certifications">Certifications: ${product.makers_marks.join(', ')}</p>`;
-            }
+        // Render surah content
+        function renderSurah(surah, ayat) {
+            const content = document.getElementById('content');
 
-            div.innerHTML = `
-                <div class="message-header">
-                    <div class="message-avatar">O</div>
-                    <span class="message-author">Quran Oracle</span>
-                    <span class="message-time">${time}</span>
+            // Build bismillah (except for Surah 9)
+            const bismillah = surah.num !== 9 ? `
+                <div class="bismillah">
+                    <div class="bismillah-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    <div class="bismillah-english">In the name of Allah, the Entirely Merciful, the Especially Merciful.</div>
                 </div>
-                <div class="message-content">
-                    <div class="product-card">
-                        <div class="product-header">
-                            ${product.image_url ? `<img src="${product.image_url}" class="product-image" alt="${product.name}">` : '<div class="product-image"></div>'}
-                            <div class="product-info">
-                                <h4>${product.name || 'Unknown Product'}</h4>
-                                <span class="brand">${product.brand || 'Unknown Brand'}</span>
-                                <div class="harm-badge ${harmClass}">${harmText} (${product.overall_harm}/10)</div>
-                            </div>
-                        </div>
-                        ${ingredientsHtml}
-                        ${marksHtml}
-                        <p class="product-source">
-                            Source: ${product.source || 'Open Food Facts'} | UPC: ${product.upc}
-                        </p>
+            ` : '';
+
+            // Build ayat HTML
+            const ayatHTML = ayat.map(a => `
+                <div class="ayah">
+                    <div class="ayah-number">${a.ayah}</div>
+                    <div class="ayah-arabic">${a.arabic_text}</div>
+                    <div class="ayah-english">${a.english_text}</div>
+                    <div class="ayah-meta">
+                        <span>Words: ${a.word_count}</span>
+                        <span>Letters: ${a.letter_count}</span>
+                        <span>Abjad: ${a.abjad}</span>
                     </div>
-                    <p>Would you like me to explain any specific ingredient or compare this to alternatives?</p>
                 </div>
+            `).join('');
+
+            content.innerHTML = `
+                <div class="surah-header">
+                    <h2>${surah.name}</h2>
+                    <div class="arabic-name">${surah.arabic}</div>
+                    <div class="meaning">"${surah.meaning}"</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${surah.ayat}</div>
+                            <div class="stat-label">Ayat</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${surah.juz}</div>
+                            <div class="stat-label">Juz</div>
+                        </div>
+                    </div>
+                </div>
+                ${bismillah}
+                ${ayatHTML}
             `;
 
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+            // Scroll to top
+            content.scrollTop = 0;
         }
-
-        // Handle Enter key in manual barcode input
-        document.getElementById('manualBarcode').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                manualLookup();
-            }
-        });
-
-        // =============================================================================
-        // USER PREFERENCES - ORACLE LEARNS YOU
-        // =============================================================================
-
-        async function openSettings() {
-            const modal = document.getElementById('preferencesModal');
-            modal.classList.remove('hidden');
-
-            // Load current preferences
-            await loadPreferences();
-        }
-
-        function closeSettings() {
-            const modal = document.getElementById('preferencesModal');
-            modal.classList.add('hidden');
-        }
-
-        async function loadPreferences() {
-            try {
-                const res = await fetch('https://enchantedozarks.com/material-icc/api/preferences');
-                if (!res.ok) {
-                    console.warn('Not authenticated or preferences unavailable');
-                    return;
-                }
-
-                const data = await res.json();
-                if (data.success && data.preferences) {
-                    const prefs = data.preferences;
-
-                    // Set form values
-                    document.getElementById('prefLength').value = prefs.response_length || 'moderate';
-                    document.getElementById('prefStyle').value = prefs.communication_style || 'warm';
-                    document.getElementById('prefAutoSpeak').checked = prefs.voice?.auto_speak !== false;
-                    document.getElementById('prefDyslexia').checked = prefs.accessibility?.dyslexia_friendly || false;
-                    document.getElementById('prefSimplified').checked = prefs.accessibility?.simplified_language || false;
-                    document.getElementById('prefScreenReader').checked = prefs.accessibility?.screen_reader || false;
-                    document.getElementById('prefAdaptive').checked = prefs.learning?.adaptive !== false;
-
-                    console.log('[OK] Preferences loaded');
-                }
-            } catch (err) {
-                console.error('[X] Failed to load preferences:', err);
-            }
-        }
-
-        async function savePreferences() {
-            const status = document.getElementById('prefStatus');
-            status.classList.remove('hidden', 'success', 'error');
-            status.textContent = 'Saving...';
-
-            try {
-                const prefs = {
-                    response_length: document.getElementById('prefLength').value,
-                    communication_style: document.getElementById('prefStyle').value,
-                    auto_speak_responses: document.getElementById('prefAutoSpeak').checked,
-                    dyslexia_friendly: document.getElementById('prefDyslexia').checked,
-                    simplified_language: document.getElementById('prefSimplified').checked,
-                    screen_reader_mode: document.getElementById('prefScreenReader').checked,
-                    adaptive_learning: document.getElementById('prefAdaptive').checked
-                };
-
-                const res = await fetch('https://enchantedozarks.com/material-icc/api/preferences', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(prefs)
-                });
-
-                const data = await res.json();
-
-                if (data.success) {
-                    status.classList.add('success');
-                    status.textContent = 'Saved! Oracle will adapt to your preferences.';
-
-                    // Apply auto-speak preference immediately
-                    voiceEnabled = prefs.auto_speak_responses;
-                    const voiceBtn = document.getElementById('voiceToggle');
-                    if (voiceBtn) {
-                        if (voiceEnabled) {
-                            voiceBtn.classList.add('active');
-                            voiceBtn.title = 'Voice output ON';
-                        } else {
-                            voiceBtn.classList.remove('active');
-                            voiceBtn.title = 'Voice output OFF';
-                        }
-                    }
-
-                    setTimeout(() => {
-                        closeSettings();
-                    }, 2000);
-                } else {
-                    status.classList.add('error');
-                    status.textContent = data.error || 'Failed to save preferences';
-                }
-            } catch (err) {
-                status.classList.add('error');
-                status.textContent = 'Error: ' + err.message;
-            }
-        }
-
-        async function resetPreferences() {
-            if (!confirm('Reset all preferences to defaults?')) return;
-
-            const defaults = {
-                response_length: 'moderate',
-                communication_style: 'warm',
-                auto_speak_responses: true,
-                dyslexia_friendly: false,
-                simplified_language: false,
-                screen_reader_mode: false,
-                adaptive_learning: true
-            };
-
-            document.getElementById('prefLength').value = 'moderate';
-            document.getElementById('prefStyle').value = 'warm';
-            document.getElementById('prefAutoSpeak').checked = true;
-            document.getElementById('prefDyslexia').checked = false;
-            document.getElementById('prefSimplified').checked = false;
-            document.getElementById('prefScreenReader').checked = false;
-            document.getElementById('prefAdaptive').checked = true;
-
-            await savePreferences();
-        }
-
-        // Feedback on Oracle responses - Oracle learns from this
-        async function submitFeedback(responseId, feedbackType) {
-            try {
-                const data = {
-                    response_id: responseId,
-                    question: 'Unknown',  // Could track this
-                    response_length: (storedResponses[responseId] || '').length
-                };
-
-                if (feedbackType === 'helpful') data.was_helpful = true;
-                else if (feedbackType === 'not_helpful') data.was_helpful = false;
-                else if (feedbackType === 'too_long') data.was_too_long = true;
-                else if (feedbackType === 'too_short') data.was_too_short = true;
-
-                const res = await fetch('https://enchantedozarks.com/material-icc/api/feedback', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (res.ok) {
-                    console.log('[OK] Feedback submitted:', feedbackType);
-
-                    // Visual confirmation
-                    const feedbackBtns = document.querySelectorAll(`[data-response-id="${responseId}"] .feedback-btn`);
-                    feedbackBtns.forEach(btn => {
-                        if (btn.getAttribute('onclick').includes(feedbackType)) {
-                            btn.classList.add('active');
-                        }
-                    });
-                }
-            } catch (err) {
-                console.error('[X] Feedback submission failed:', err);
-            }
-        }
-
     </script>
-
-    <script src="https://enchantedozarks.com/static/js/particles.js"></script>
 </body>
 </html>
