@@ -632,7 +632,7 @@ Copyright (c) 2026 Tammy L Casey. All rights reserved.
         ];
 
         // API endpoint for fetching ayat
-        const API_BASE = 'https://enchantedozarks.com';
+        const API_BASE = 'https://enchantedozarks.com/sacred-library/api/v1/quran';
 
         // Current state
         let currentSurah = null;
@@ -645,7 +645,7 @@ Copyright (c) 2026 Tammy L Casey. All rights reserved.
 
             // Load Quran data from API
             try {
-                const response = await fetch(`${API_BASE}/api/sacred-knowledge/quran/full`);
+                const response = await fetch(`${API_BASE}/full`);
                 if (response.ok) {
                     quranData = await response.json();
                     console.log('Quran data loaded from API');
@@ -707,7 +707,7 @@ Copyright (c) 2026 Tammy L Casey. All rights reserved.
 
             try {
                 // Try to fetch from API
-                const response = await fetch(`${API_BASE}/api/sacred-knowledge/quran/surah/${surahNum}`);
+                const response = await fetch(`${API_BASE}/surah/${surahNum}`);
 
                 if (response.ok) {
                     const data = await response.json();
